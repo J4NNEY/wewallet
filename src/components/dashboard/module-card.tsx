@@ -17,7 +17,7 @@ interface ModuleCardProps {
 }
 
 const colorStyles = {
-  pink: { bg: "bg-pink-50", icon: "text-pink-500", hover: "hover:border-pink-200" },
+  pink: { bg: "bg-[#fff0f4]", icon: "text-[#e85d8a]", hover: "hover:border-[#ffb6c9]/30" },
   blue: { bg: "bg-blue-50", icon: "text-blue-500", hover: "hover:border-blue-200" },
   purple: { bg: "bg-purple-50", icon: "text-purple-500", hover: "hover:border-purple-200" },
   orange: { bg: "bg-orange-50", icon: "text-orange-500", hover: "hover:border-orange-200" },
@@ -54,3 +54,4 @@ export function ModuleCard({
     </Link>
   );
 }
+

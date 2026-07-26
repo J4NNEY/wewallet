@@ -94,7 +94,7 @@ export default function ResetPasswordPage() {
           </Button>
           <p className="text-sm text-gray-500">
             Kembali ke{" "}
-            <Link href="/login" className="text-pink-500 hover:text-pink-600 font-medium">
+            <Link href="/login" className="text-[#e85d8a] hover:text-[#e85d8a] font-medium">
               login
             </Link>
           </p>
@@ -103,3 +103,4 @@ export default function ResetPasswordPage() {
     </Card>
   );
 }
+

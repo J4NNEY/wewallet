@@ -279,7 +279,7 @@ export default function NotesPage() {
               Isi Catatan
             </label>
             <textarea
-              className="w-full min-h-[200px] rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full min-h-[200px] rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e85d8a]"
               placeholder="Tulis sesuatu..."
               value={editingNote?.content || ""}
               onChange={(e) =>
@@ -320,7 +320,7 @@ export default function NotesPage() {
             <Card
               key={note.id}
               className={`group hover:shadow-md transition-shadow ${
-                note.is_pinned ? "ring-2 ring-pink-200" : ""
+                note.is_pinned ? "ring-2 ring-[#ffb6c9]/30" : ""
               }`}
             >
               <CardHeader className="pb-2">
@@ -328,7 +328,7 @@ export default function NotesPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       {note.is_pinned && (
-                        <Pin className="h-3 w-3 text-pink-600 flex-shrink-0" />
+                        <Pin className="h-3 w-3 text-[#e85d8a] flex-shrink-0" />
                       )}
                       <CardTitle className="text-base truncate">
                         {note.title}
@@ -397,3 +397,5 @@ export default function NotesPage() {
     </div>
   );
 }
+
+

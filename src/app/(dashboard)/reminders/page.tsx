@@ -284,14 +284,14 @@ export default function RemindersPage() {
         <div
           key={day}
           className={`h-24 border border-gray-200 p-1 cursor-pointer transition-colors ${
-            isToday ? "bg-pink-50" : "hover:bg-gray-50"
-          } ${isSelected ? "ring-2 ring-pink-500" : ""}`}
+            isToday ? "bg-[#fff0f4]" : "hover:bg-gray-50"
+          } ${isSelected ? "ring-2 ring-[#ffb6c9]" : ""}`}
           onClick={() => handleDateClick(day)}
         >
           <div
             className={`text-sm font-medium ${
               isToday
-                ? "text-pink-600"
+                ? "text-[#e85d8a]"
                 : "text-gray-700"
             }`}
           >
@@ -377,7 +377,7 @@ export default function RemindersPage() {
               Deskripsi (opsional)
             </label>
             <textarea
-              className="w-full min-h-[80px] rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full min-h-[80px] rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e85d8a]"
               placeholder="Detail tambahan..."
               value={formData.description}
               onChange={(e) =>
@@ -561,7 +561,7 @@ function ReminderItem({
         onClick={() => onToggle(reminder)}
         className={`flex-shrink-0 w-5 h-5 mt-0.5 rounded border-2 flex items-center justify-center ${
           reminder.is_completed
-            ? "bg-pink-500 border-pink-500"
+            ? "bg-[#ffb6c9] border-[#ffb6c9]"
             : "border-gray-300"
         }`}
       >
@@ -616,3 +616,5 @@ function ReminderItem({
     </div>
   );
 }
+
+

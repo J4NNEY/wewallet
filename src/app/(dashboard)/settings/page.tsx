@@ -76,7 +76,7 @@ export default function SettingsPage() {
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center">
-              <Mail className="h-5 w-5 text-pink-500" />
+              <Mail className="h-5 w-5 text-[#e85d8a]" />
             </div>
             <div>
               <CardTitle className="text-base">Rekap Email</CardTitle>
@@ -181,3 +181,4 @@ export default function SettingsPage() {
     </div>
   );
 }
+

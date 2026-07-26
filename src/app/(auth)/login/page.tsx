@@ -69,7 +69,7 @@ export default function LoginPage() {
           />
           <Link
             href="/forgot-password"
-            className="text-sm text-pink-500 hover:text-pink-600 block text-right"
+            className="text-sm text-[#e85d8a] hover:text-[#e85d8a] block text-right"
           >
             Lupa password?
           </Link>
@@ -80,7 +80,7 @@ export default function LoginPage() {
           </Button>
           <p className="text-sm text-gray-500">
             Belum punya akun?{" "}
-            <Link href="/register" className="text-pink-500 hover:text-pink-600 font-medium">
+            <Link href="/register" className="text-[#e85d8a] hover:text-[#e85d8a] font-medium">
               Daftar
             </Link>
           </p>
@@ -89,3 +89,4 @@ export default function LoginPage() {
     </Card>
   );
 }
+

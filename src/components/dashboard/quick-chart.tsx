@@ -29,7 +29,7 @@ export function QuickChart({ data, loading }: QuickChartProps) {
           <CardTitle className="text-base font-semibold">Grafik Keuangan</CardTitle>
           <div className="flex items-center gap-3 text-xs">
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-pink-500" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#ffb6c9]" />
               <span className="text-gray-500">Pemasukan</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -68,7 +68,7 @@ export function QuickChart({ data, loading }: QuickChartProps) {
                   <div key={index} className="flex-1 flex flex-col items-center gap-1">
                     <div className="w-full flex gap-0.5 items-end justify-center" style={{ height: "160px" }}>
                       <div
-                        className="flex-1 bg-pink-500 rounded-t-sm transition-all duration-300 hover:bg-pink-600"
+                        className="flex-1 bg-[#ffb6c9] rounded-t-sm transition-all duration-300 hover:bg-[#ff9db5]"
                         style={{ height: `${incomeHeight}%`, minHeight: point.income > 0 ? "4px" : "0" }}
                       />
                       <div

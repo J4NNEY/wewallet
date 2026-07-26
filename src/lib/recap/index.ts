@@ -172,7 +172,7 @@ export function formatRecapEmail(data: RecapData): string {
 export function formatRecapHtml(data: RecapData): string {
   let html = `
     <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <h2 style="color: #ec4899; margin-bottom: 4px;">Rekap Keuangan ${data.period}</h2>
+      <h2 style="color: #ffb6c9; margin-bottom: 4px;">Rekap Keuangan ${data.period}</h2>
       <hr style="border: 1px solid #fce7f3; margin-bottom: 20px;">
       
       <h3 style="color: #374151; font-size: 16px;">Ringkasan</h3>

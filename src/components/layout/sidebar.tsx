@@ -99,7 +99,7 @@ export function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
-            <div className="w-8 h-8 rounded-lg bg-pink-500 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#ffb6c9' }}>
               <Wallet className="h-4 w-4 text-white" aria-hidden="true" />
             </div>
             <span className="text-lg font-semibold text-gray-900">
@@ -120,11 +120,12 @@ export function Sidebar() {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-pink-50 text-pink-700"
+                      ? "text-[#d14b7a]"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   )}
+                  style={isActive ? { backgroundColor: '#fff0f4' } : undefined}
                 >
-                  <item.icon className={cn("h-5 w-5", isActive ? "text-pink-500" : "text-gray-400")} aria-hidden="true" />
+                  <item.icon className={cn("h-5 w-5", isActive ? "text-[#e85d8a]" : "text-gray-400")} aria-hidden="true" />
                   {item.name}
                 </Link>
               );

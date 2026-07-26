@@ -11,7 +11,7 @@ export default function AuthLayout({
       <div className="w-full max-w-md">
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center gap-3 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-pink-500 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#ffb6c9' }}>
             <Wallet className="h-5 w-5 text-white" />
           </div>
           <span className="text-2xl font-semibold text-gray-900">

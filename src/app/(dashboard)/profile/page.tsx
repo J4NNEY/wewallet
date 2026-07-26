@@ -110,7 +110,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#ffb6c9]"></div>
       </div>
     );
   }
@@ -128,7 +128,7 @@ export default function ProfilePage() {
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center">
-              <User className="h-5 w-5 text-pink-500" />
+              <User className="h-5 w-5 text-[#e85d8a]" />
             </div>
             <div>
               <CardTitle className="text-base">Informasi Profil</CardTitle>
@@ -213,3 +213,4 @@ export default function ProfilePage() {
     </div>
   );
 }
+

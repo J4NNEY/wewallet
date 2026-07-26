@@ -8,7 +8,7 @@ const quickActions = [
   { name: "Keuangan", href: "/finance", icon: DollarSign, color: "bg-emerald-100 text-emerald-600" },
   { name: "Belanja", href: "/shopping", icon: ShoppingCart, color: "bg-orange-100 text-orange-600" },
   { name: "Reminder", href: "/reminders", icon: Bell, color: "bg-blue-100 text-blue-600" },
-  { name: "Kalkulator", href: "/calculator", icon: Calculator, color: "bg-pink-100 text-pink-600" },
+  { name: "Kalkulator", href: "/calculator", icon: Calculator, color: "bg-[#fff0f4] text-[#e8849e]" },
 ];
 
 export function QuickActions() {

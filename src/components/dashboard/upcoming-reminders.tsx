@@ -67,7 +67,7 @@ export function UpcomingReminders({ reminders, loading }: UpcomingRemindersProps
                 )}>
                   <Clock className={cn(
                     "h-5 w-5",
-                    reminder.isToday ? "text-pink-500" : "text-gray-500"
+                    reminder.isToday ? "text-[#e85d8a]" : "text-gray-500"
                   )} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -77,7 +77,7 @@ export function UpcomingReminders({ reminders, loading }: UpcomingRemindersProps
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className={cn(
                       "text-xs font-medium",
-                      reminder.isToday ? "text-pink-600" : "text-gray-500"
+                      reminder.isToday ? "text-[#e85d8a]" : "text-gray-500"
                     )}>
                       {getDateLabel(reminder)}
                     </span>
@@ -94,3 +94,4 @@ export function UpcomingReminders({ reminders, loading }: UpcomingRemindersProps
     </Card>
   );
 }
+

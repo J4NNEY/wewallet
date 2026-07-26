@@ -37,11 +37,11 @@ export function BottomNav() {
               href={item.href}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 w-full h-full transition-colors",
-                isActive ? "text-pink-600" : "text-gray-400"
+                isActive ? "text-[#e85d8a]" : "text-gray-400"
               )}
               aria-current={isActive ? "page" : undefined}
             >
-              <item.icon className={cn("h-5 w-5", isActive && "text-pink-600")} aria-hidden="true" />
+              <item.icon className={cn("h-5 w-5", isActive && "text-[#e85d8a]")} aria-hidden="true" />
               <span className="text-[10px] font-medium">{item.name}</span>
             </Link>
           );

@@ -345,7 +345,7 @@ export default function FinancePage() {
             <div className="grid grid-cols-2 gap-2">
               <Button
                 variant={formData.type === "income" ? "default" : "outline"}
-                className={formData.type === "income" ? "bg-pink-600" : ""}
+                className={formData.type === "income" ? "bg-[#ffb6c9]" : ""}
                 onClick={() => setFormData((prev) => ({ ...prev, type: "income" }))}
               >
                 <ArrowUpCircle className="h-4 w-4 mr-2" />
@@ -410,7 +410,7 @@ export default function FinancePage() {
               Keterangan (opsional)
             </label>
             <textarea
-              className="w-full min-h-[60px] rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full min-h-[60px] rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e85d8a]"
               placeholder="Catatan tambahan..."
               value={formData.description}
               onChange={(e) =>
@@ -449,11 +449,11 @@ export default function FinancePage() {
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-pink-50 rounded-lg">
-                <TrendingUp className="h-5 w-5 text-pink-600" />
+                <TrendingUp className="h-5 w-5 text-[#e85d8a]" />
               </div>
               <div>
                 <p className="text-sm text-gray-600">Pemasukan</p>
-                <p className="text-xl font-bold text-pink-600">
+                <p className="text-xl font-bold text-[#e85d8a]">
                   {formatCurrency(totalIncome)}
                 </p>
               </div>
@@ -485,7 +485,7 @@ export default function FinancePage() {
                 <p className="text-sm text-gray-600">Saldo</p>
                 <p
                   className={`text-xl font-bold ${
-                    balance >= 0 ? "text-pink-600" : "text-red-500"
+                    balance >= 0 ? "text-[#e85d8a]" : "text-red-500"
                   }`}
                 >
                   {formatCurrency(balance)}
@@ -537,7 +537,7 @@ export default function FinancePage() {
                     }`}
                   >
                     {record.type === "income" ? (
-                      <ArrowUpCircle className="h-5 w-5 text-pink-600" />
+                      <ArrowUpCircle className="h-5 w-5 text-[#e85d8a]" />
                     ) : (
                       <ArrowDownCircle className="h-5 w-5 text-red-500" />
                     )}
@@ -558,7 +558,7 @@ export default function FinancePage() {
                   <p
                     className={`font-semibold ${
                       record.type === "income"
-                        ? "text-pink-600"
+                        ? "text-[#e85d8a]"
                         : "text-red-500"
                     }`}
                   >
@@ -592,3 +592,5 @@ export default function FinancePage() {
     </div>
   );
 }
+
+

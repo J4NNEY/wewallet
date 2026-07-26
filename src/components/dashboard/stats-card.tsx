@@ -30,7 +30,7 @@ const colorStyles = {
   },
   pink: {
     bg: "bg-pink-50",
-    icon: "text-pink-500",
+    icon: "text-[#e85d8a]",
     trendUp: "text-emerald-600 bg-emerald-50",
     trendDown: "text-red-600 bg-red-50",
   },
@@ -87,3 +87,4 @@ export function StatsCard({ title, value, icon, trend, color }: StatsCardProps) 
     </Card>
   );
 }
+

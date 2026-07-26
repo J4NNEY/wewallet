@@ -4,7 +4,7 @@ import type { Note, ShoppingList, ShoppingListItem, FinanceRecord } from "@/type
 
 const addHeader = (doc: jsPDF, title: string) => {
   doc.setFontSize(20);
-  doc.setTextColor(236, 72, 153); // pink-500
+  doc.setTextColor(255, 182, 201); // pink-500
   doc.text("WeWallet", 14, 22);
 
   doc.setFontSize(12);

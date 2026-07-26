@@ -69,7 +69,7 @@ export default function ForgotPasswordPage() {
           </Button>
           <p className="text-sm text-gray-500">
             Kembali ke{" "}
-            <Link href="/login" className="text-pink-500 hover:text-pink-600 font-medium">
+            <Link href="/login" className="text-[#e85d8a] hover:text-[#e85d8a] font-medium">
               halaman login
             </Link>
           </p>
@@ -78,3 +78,4 @@ export default function ForgotPasswordPage() {
     </Card>
   );
 }
+

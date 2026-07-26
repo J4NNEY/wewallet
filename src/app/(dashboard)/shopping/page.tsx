@@ -397,7 +397,7 @@ export default function ShoppingPage() {
                 <Card
                   key={list.id}
                   className={`cursor-pointer transition-all hover:shadow-md ${
-                    selectedList === list.id ? "ring-2 ring-pink-500" : ""
+                    selectedList === list.id ? "ring-2 ring-[#ffb6c9]" : ""
                   } ${list.is_completed ? "opacity-60" : ""}`}
                   onClick={() => setSelectedList(list.id)}
                 >
@@ -405,7 +405,7 @@ export default function ShoppingPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          {list.is_completed && <Check className="h-4 w-4 text-pink-600" />}
+                          {list.is_completed && <Check className="h-4 w-4 text-[#e85d8a]" />}
                           <p className="font-medium text-gray-900 truncate">{list.name}</p>
                         </div>
                         <p className="text-xs text-gray-500 mt-1">{formatDate(list.created_at)}</p>
@@ -498,13 +498,13 @@ export default function ShoppingPage() {
                       <div
                         key={item.id}
                         className={`flex items-center gap-3 p-3 rounded-lg border ${
-                          item.is_checked ? "bg-pink-50 border-pink-200" : "bg-white border-gray-200"
+                          item.is_checked ? "bg-[#fff0f4] border-[#ffb6c9]/30" : "bg-white border-gray-200"
                         }`}
                       >
                         <button
                           onClick={() => handleToggleItem(item)}
                           className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center ${
-                            item.is_checked ? "bg-pink-500 border-pink-500" : "border-gray-300"
+                            item.is_checked ? "bg-[#ffb6c9] border-[#ffb6c9]" : "border-gray-300"
                           }`}
                         >
                           {item.is_checked && <Check className="h-3 w-3 text-white" />}
@@ -548,3 +548,5 @@ export default function ShoppingPage() {
     </div>
   );
 }
+
+

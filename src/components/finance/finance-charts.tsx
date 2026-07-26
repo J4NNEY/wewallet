@@ -10,7 +10,7 @@ interface FinanceChartsProps {
 }
 
 const COLORS = [
-  "#ec4899", "#3b82f6", "#8b5cf6", "#f59e0b",
+  "#ffb6c9", "#3b82f6", "#8b5cf6", "#f59e0b",
   "#ef4444", "#06b6d4", "#10b981", "#84cc16",
   "#6b7280",
 ];
@@ -168,7 +168,7 @@ export function FinanceCharts({ records }: FinanceChartsProps) {
             <div className="space-y-4">
               <div className="flex justify-end gap-4 text-xs">
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded bg-pink-500" />
+                  <div className="w-3 h-3 rounded bg-[#ffb6c9]" />
                   <span className="text-gray-600">Pemasukan</span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -185,7 +185,7 @@ export function FinanceCharts({ records }: FinanceChartsProps) {
                   >
                     <div className="w-full flex gap-0.5 items-end justify-center h-40">
                       <div
-                        className="flex-1 bg-pink-500 rounded-t"
+                        className="flex-1 bg-[#ffb6c9] rounded-t"
                         style={{
                           height: `${(day.income / maxDailyValue) * 100}%`,
                           minHeight: day.income > 0 ? "4px" : "0",

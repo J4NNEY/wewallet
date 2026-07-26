@@ -78,7 +78,7 @@ export function MobileHeader() {
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 lg:hidden">
         <div className="flex items-center justify-between h-14 px-4">
           <Link href="/dashboard" className="flex items-center gap-2" aria-label="WeWallet Home">
-            <div className="w-8 h-8 rounded-lg bg-pink-500 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#ffb6c9' }}>
               <Wallet className="h-4 w-4 text-white" aria-hidden="true" />
             </div>
             <span className="text-lg font-semibold text-gray-900">WeWallet</span>
@@ -124,9 +124,10 @@ export function MobileHeader() {
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 text-sm transition-colors",
                   pathname === item.href
-                    ? "text-pink-600 bg-pink-50"
+                    ? "text-[#d14b7a]"
                     : "text-gray-700 hover:bg-gray-50"
                 )}
+                style={pathname === item.href ? { backgroundColor: '#fff0f4' } : undefined}
               >
                 <item.icon className="h-4 w-4" aria-hidden="true" />
                 {item.name}
