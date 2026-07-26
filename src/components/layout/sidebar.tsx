@@ -17,7 +17,7 @@ import {
   Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -33,6 +33,24 @@ const navigation = [
 export function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const sidebarRef = useRef<HTMLElement>(null);
+
+  // Close sidebar on Escape
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen]);
 
   const handleLogout = async () => {
     const { createClient } = await import("@/lib/supabase/client");
@@ -47,11 +65,14 @@ export function Sidebar() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-white shadow-sm border border-gray-200"
+        aria-expanded={isOpen}
+        aria-controls="sidebar"
+        aria-label={isOpen ? "Tutup menu" : "Buka menu"}
       >
         {isOpen ? (
-          <X className="h-5 w-5 text-gray-600" />
+          <X className="h-5 w-5 text-gray-600" aria-hidden="true" />
         ) : (
-          <Menu className="h-5 w-5 text-gray-600" />
+          <Menu className="h-5 w-5 text-gray-600" aria-hidden="true" />
         )}
       </button>
 
@@ -60,21 +81,26 @@ export function Sidebar() {
         <div
           className="lg:hidden fixed inset-0 bg-black/20 z-40"
           onClick={() => setIsOpen(false)}
+          aria-hidden="true"
         />
       )}
 
       {/* Sidebar */}
       <aside
+        id="sidebar"
+        ref={sidebarRef}
         className={cn(
           "fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out lg:transform-none",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
+        role="navigation"
+        aria-label="Navigasi sidebar"
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
             <div className="w-8 h-8 rounded-lg bg-pink-500 flex items-center justify-center">
-              <Wallet className="h-4 w-4 text-white" />
+              <Wallet className="h-4 w-4 text-white" aria-hidden="true" />
             </div>
             <span className="text-lg font-semibold text-gray-900">
               WeWallet
@@ -90,6 +116,7 @@ export function Sidebar() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                     isActive
@@ -97,7 +124,7 @@ export function Sidebar() {
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   )}
                 >
-                  <item.icon className={cn("h-5 w-5", isActive ? "text-pink-500" : "text-gray-400")} />
+                  <item.icon className={cn("h-5 w-5", isActive ? "text-pink-500" : "text-gray-400")} aria-hidden="true" />
                   {item.name}
                 </Link>
               );
@@ -109,8 +136,9 @@ export function Sidebar() {
             <button
               onClick={handleLogout}
               className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              aria-label="Keluar dari akun"
             >
-              <LogOut className="h-5 w-5 text-gray-400" />
+              <LogOut className="h-5 w-5 text-gray-400" aria-hidden="true" />
               Keluar
             </button>
           </div>

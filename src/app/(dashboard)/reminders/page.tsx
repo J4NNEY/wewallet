@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { formatDate, formatDateTime } from "@/lib/utils";
 import { reminderSchema } from "@/lib/validations";
+import { createNextRecurringReminder } from "@/lib/reminders/repeat";
 import type { Reminder } from "@/types";
 
 const DAYS = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
@@ -201,12 +202,35 @@ export default function RemindersPage() {
   const handleToggleComplete = async (reminder: Reminder) => {
     try {
       const supabase = createClient();
+      const newCompletedState = !reminder.is_completed;
+      
       const { error } = await supabase
         .from("reminders")
-        .update({ is_completed: !reminder.is_completed })
+        .update({ is_completed: newCompletedState })
         .eq("id", reminder.id);
 
       if (error) throw error;
+
+      // If marking as completed and has repeat type, create next reminder
+      if (newCompletedState && reminder.repeat_type !== "none") {
+        const created = await createNextRecurringReminder({
+          id: reminder.id,
+          user_id: reminder.user_id,
+          title: reminder.title,
+          description: reminder.description,
+          due_date: reminder.due_date,
+          repeat_type: reminder.repeat_type,
+        });
+
+        if (created) {
+          success("Reminder selesai! Reminder berikutnya sudah dibuat.");
+        } else {
+          success("Reminder selesai!");
+        }
+      } else {
+        success(newCompletedState ? "Reminder selesai!" : "Reminder dibatalkan.");
+      }
+
       fetchReminders();
     } catch (err) {
       console.error("Error toggling reminder:", err);
