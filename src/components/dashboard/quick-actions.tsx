@@ -1,65 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus, StickyNote, DollarSign, Bell, Calculator } from "lucide-react";
+import { StickyNote, DollarSign, Bell, Calculator, ShoppingCart } from "lucide-react";
 
-interface QuickAction {
-  name: string;
-  href: string;
-  icon: React.ReactNode;
-  color: string;
-}
-
-const quickActions: QuickAction[] = [
-  {
-    name: "Catatan",
-    href: "/notes",
-    icon: <StickyNote className="h-4 w-4" />,
-    color: "bg-purple-50 text-purple-600 hover:bg-purple-100",
-  },
-  {
-    name: "Transaksi",
-    href: "/finance",
-    icon: <DollarSign className="h-4 w-4" />,
-    color: "bg-emerald-50 text-emerald-600 hover:bg-emerald-100",
-  },
-  {
-    name: "Reminder",
-    href: "/reminders",
-    icon: <Bell className="h-4 w-4" />,
-    color: "bg-blue-50 text-blue-600 hover:bg-blue-100",
-  },
-  {
-    name: "Kalkulator",
-    href: "/calculator",
-    icon: <Calculator className="h-4 w-4" />,
-    color: "bg-orange-50 text-orange-600 hover:bg-orange-100",
-  },
+const quickActions = [
+  { name: "Catatan", href: "/notes", icon: StickyNote, color: "bg-purple-100 text-purple-600" },
+  { name: "Keuangan", href: "/finance", icon: DollarSign, color: "bg-emerald-100 text-emerald-600" },
+  { name: "Belanja", href: "/shopping", icon: ShoppingCart, color: "bg-orange-100 text-orange-600" },
+  { name: "Reminder", href: "/reminders", icon: Bell, color: "bg-blue-100 text-blue-600" },
+  { name: "Kalkulator", href: "/calculator", icon: Calculator, color: "bg-pink-100 text-pink-600" },
 ];
 
 export function QuickActions() {
   return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-base font-semibold">Pintasan</CardTitle>
-      </CardHeader>
-      <CardContent className="pt-0">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {quickActions.map((action) => (
-            <Link key={action.name} href={action.href}>
-              <Button
-                variant="ghost"
-                className={`w-full justify-start gap-2 h-auto py-3 ${action.color}`}
-              >
-                {action.icon}
-                <span className="text-sm font-medium">{action.name}</span>
-              </Button>
-            </Link>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+    <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
+      {quickActions.map((action) => (
+        <Link
+          key={action.name}
+          href={action.href}
+          className="flex-shrink-0"
+        >
+          <div className="flex flex-col items-center gap-1.5 w-16 sm:w-20">
+            <div className={`w-12 h-12 rounded-2xl ${action.color} flex items-center justify-center`}>
+              <action.icon className="h-5 w-5" />
+            </div>
+            <span className="text-[11px] font-medium text-gray-700 text-center">{action.name}</span>
+          </div>
+        </Link>
+      ))}
+    </div>
   );
 }

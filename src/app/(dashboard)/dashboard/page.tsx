@@ -412,66 +412,57 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 truncate">
-            {getGreeting()}, {userName}!
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-500 mt-1">
-            Ringkasan hari ini
-          </p>
-        </div>
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0">
-          <Wallet className="h-5 w-5 sm:h-6 sm:w-6 text-pink-500" />
-        </div>
+      <div>
+        <h1 className="text-lg sm:text-2xl font-semibold text-gray-900">
+          {getGreeting()}, {userName}!
+        </h1>
+        <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
+          Ringkasan hari ini
+        </p>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <StatsCard
-          title="Pemasukan"
-          value={formatCurrency(monthlyIncome)}
-          icon={<ArrowUpRight className="h-6 w-6" />}
-          trend={{ value: Math.abs(incomeTrend), isPositive: incomeTrend >= 0 }}
-          color="green"
-        />
-        <StatsCard
-          title="Pengeluaran"
-          value={formatCurrency(monthlyExpense)}
-          icon={<ArrowDownRight className="h-6 w-6" />}
-          trend={{ value: Math.abs(expenseTrend), isPositive: expenseTrend <= 0 }}
-          color="red"
-        />
-        <StatsCard
-          title="Saldo"
-          value={formatCurrency(monthlyIncome - monthlyExpense)}
-          icon={<DollarSign className="h-6 w-6" />}
-          color="pink"
-        />
+      {/* Stats Cards - Horizontal scroll on mobile */}
+      <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 scrollbar-hide">
+        <div className="flex-shrink-0 w-[160px] sm:w-auto">
+          <StatsCard
+            title="Pemasukan"
+            value={formatCurrency(monthlyIncome)}
+            icon={<ArrowUpRight className="h-5 w-5" />}
+            trend={{ value: Math.abs(incomeTrend), isPositive: incomeTrend >= 0 }}
+            color="green"
+          />
+        </div>
+        <div className="flex-shrink-0 w-[160px] sm:w-auto">
+          <StatsCard
+            title="Pengeluaran"
+            value={formatCurrency(monthlyExpense)}
+            icon={<ArrowDownRight className="h-5 w-5" />}
+            trend={{ value: Math.abs(expenseTrend), isPositive: expenseTrend <= 0 }}
+            color="red"
+          />
+        </div>
+        <div className="flex-shrink-0 w-[160px] sm:w-auto">
+          <StatsCard
+            title="Saldo"
+            value={formatCurrency(monthlyIncome - monthlyExpense)}
+            icon={<DollarSign className="h-5 w-5" />}
+            color="pink"
+          />
+        </div>
       </div>
 
       {/* Quick Actions */}
       <QuickActions />
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Chart - 2 columns */}
-        <div className="lg:col-span-2">
-          <QuickChart data={chartData} loading={false} />
-        </div>
-        
-        {/* Activity Feed - 1 column */}
-        <div>
-          <ActivityFeed activities={activities} loading={false} />
-        </div>
-      </div>
+      {/* Chart */}
+      <QuickChart data={chartData} loading={false} />
 
-      {/* Module Cards */}
+      {/* Module Cards - 2 columns on mobile */}
       <div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Modul</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <h2 className="text-base font-semibold text-gray-900 mb-3">Modul</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {modules.map((mod) => (
             <ModuleCard
               key={mod.name}
