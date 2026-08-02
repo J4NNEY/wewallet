@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { getAuthErrorMessage } from "@/lib/auth-errors";
@@ -9,22 +10,18 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isResending, setIsResending] = useState(false);
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    setSuccess(null);
 
     if (password !== confirmPassword) {
       setError("Password tidak cocok");
@@ -39,14 +36,13 @@ export default function RegisterPage() {
     }
 
     const supabase = createClient();
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
           full_name: fullName,
         },
-        emailRedirectTo: `${siteUrl}/login`,
       },
     });
 
@@ -56,30 +52,19 @@ export default function RegisterPage() {
       return;
     }
 
-    setSuccess("Akun dibuat! Cek email buat verifikasi ya.");
-    setIsLoading(false);
-  };
-
-  const handleResend = async () => {
-    if (!email) return;
-    setIsResending(true);
-    setError(null);
-
-    const supabase = createClient();
-    const { error } = await supabase.auth.resend({
-      type: "signup",
-      email,
-      options: {
-        emailRedirectTo: `${siteUrl}/login`,
-      },
-    });
-
-    setIsResending(false);
-    if (error) {
-      setError(getAuthErrorMessage(error, email));
-    } else {
-      setSuccess("Email verifikasi dikirim ulang. Cek inbox kamu ya!");
+    // Jika konfirmasi email dimatikan di dashboard Supabase,
+    // signUp langsung mengembalikan session → masuk otomatis.
+    if (data.session) {
+      router.push("/dashboard");
+      router.refresh();
+      return;
     }
+
+    // Konfirmasi email masih aktif → user dibuat tapi belum aktif.
+    setError(
+      "Akun sudah dibuat, tapi verifikasi email masih aktif di dashboard Supabase. Matikan 'Confirm email' di Authentication → Providers → Email biar langsung bisa masuk."
+    );
+    setIsLoading(false);
   };
 
   return (
@@ -95,19 +80,6 @@ export default function RegisterPage() {
           {error && (
             <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-100">
               {error}
-            </div>
-          )}
-          {success && (
-            <div className="p-3 text-sm text-green-600 bg-green-50 rounded-lg border border-green-100 space-y-2">
-              <p>{success}</p>
-              <button
-                type="button"
-                onClick={handleResend}
-                disabled={isResending}
-                className="text-[#e85d8a] hover:text-[#d14b7a] font-medium disabled:opacity-50"
-              >
-                {isResending ? "Mengirim ulang..." : "Kirim ulang email verifikasi"}
-              </button>
             </div>
           )}
           <Input
@@ -158,4 +130,3 @@ export default function RegisterPage() {
     </Card>
   );
 }
-
