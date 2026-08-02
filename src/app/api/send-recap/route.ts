@@ -5,6 +5,7 @@ import { Resend } from "resend";
 import { formatCurrency, formatDate } from "@/lib/utils";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const FROM_EMAIL = process.env.RESEND_FROM || "WeWallet <onboarding@resend.dev>";
 
 export async function POST(request: NextRequest) {
   try {
@@ -237,7 +238,7 @@ export async function POST(request: NextRequest) {
 
     // Send email
     const { data, error } = await resend.emails.send({
-      from: "WeWallet <onboarding@resend.dev>",
+      from: FROM_EMAIL,
       to: [userEmail],
       subject: `Rekap Keuangan ${periodLabel} - WeWallet`,
       html: emailHtml,
