@@ -64,15 +64,15 @@ export function Sidebar() {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-white shadow-sm border border-gray-200"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-surface-container-lowest shadow-card border border-outline-variant/60"
         aria-expanded={isOpen}
         aria-controls="sidebar"
         aria-label={isOpen ? "Tutup menu" : "Buka menu"}
       >
         {isOpen ? (
-          <X className="h-5 w-5 text-gray-600" aria-hidden="true" />
+          <X className="h-5 w-5 text-on-surface" aria-hidden="true" />
         ) : (
-          <Menu className="h-5 w-5 text-gray-600" aria-hidden="true" />
+          <Menu className="h-5 w-5 text-on-surface" aria-hidden="true" />
         )}
       </button>
 
@@ -90,7 +90,7 @@ export function Sidebar() {
         id="sidebar"
         ref={sidebarRef}
         className={cn(
-          "fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out lg:transform-none",
+          "fixed lg:static inset-y-0 left-0 z-40 w-64 bg-surface-container-lowest border-r border-outline-variant/40 transform transition-transform duration-200 ease-in-out lg:transform-none",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
         role="navigation"
@@ -98,11 +98,11 @@ export function Sidebar() {
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center gap-3 px-6 py-5 border-b border-[#ffe4ec]">
+          <div className="flex items-center gap-3 px-6 py-5 border-b border-outline-variant/40">
             <div className="w-9 h-9 rounded-xl bg-gradient-pink flex items-center justify-center shadow-card">
               <Wallet className="h-4 w-4 text-white" aria-hidden="true" />
             </div>
-            <span className="text-lg font-semibold text-gray-900">
+            <span className="text-lg font-extrabold tracking-tight text-primary-text">
               WeWallet
             </span>
           </div>
@@ -120,12 +120,11 @@ export function Sidebar() {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                     isActive
-                      ? "text-[#d14b7a]"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      ? "text-primary-text bg-primary-fixed"
+                      : "text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
                   )}
-                  style={isActive ? { backgroundColor: '#fff0f4' } : undefined}
                 >
-                  <item.icon className={cn("h-5 w-5", isActive ? "text-[#e85d8a]" : "text-gray-400")} aria-hidden="true" />
+                  <item.icon className={cn("h-5 w-5", isActive ? "text-primary-text" : "text-on-surface-variant")} aria-hidden="true" />
                   {item.name}
                 </Link>
               );
@@ -133,13 +132,13 @@ export function Sidebar() {
           </nav>
 
           {/* Logout */}
-          <div className="p-3 border-t border-gray-100">
+          <div className="p-3 border-t border-outline-variant/40">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-on-surface-variant hover:bg-surface-container-low hover:text-error transition-colors"
               aria-label="Keluar dari akun"
             >
-              <LogOut className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              <LogOut className="h-5 w-5 text-on-surface-variant" aria-hidden="true" />
               Keluar
             </button>
           </div>

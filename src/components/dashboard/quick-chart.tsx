@@ -30,12 +30,12 @@ export function QuickChart({ data, loading }: QuickChartProps) {
           <CardTitle className="text-base font-semibold">Grafik Keuangan</CardTitle>
           <div className="flex items-center gap-3 text-xs">
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#ffb6c9]" />
-              <span className="text-gray-500">Pemasukan</span>
+              <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+              <span className="text-on-surface-variant">Pemasukan</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#ffdde6]" />
-              <span className="text-gray-500">Pengeluaran</span>
+              <div className="w-2.5 h-2.5 rounded-full bg-primary-container" />
+              <span className="text-on-surface-variant">Pengeluaran</span>
             </div>
           </div>
         </div>
@@ -69,15 +69,15 @@ export function QuickChart({ data, loading }: QuickChartProps) {
                   <div key={index} className="flex-1 flex flex-col items-center gap-1">
                     <div className="w-full flex gap-0.5 items-end justify-center" style={{ height: "160px" }}>
                       <div
-                        className="flex-1 bg-[#ffb6c9] rounded-t-lg transition-all duration-300 hover:bg-[#ff9db5]"
+                        className="flex-1 bg-primary rounded-t-lg transition-all duration-300 hover:bg-primary-hover"
                         style={{ height: `${incomeHeight}%`, minHeight: point.income > 0 ? "6px" : "0" }}
                       />
                       <div
-                        className="flex-1 bg-[#ffdde6] rounded-t-lg transition-all duration-300 hover:bg-[#ffc6d6]"
+                        className="flex-1 bg-primary-container rounded-t-lg transition-all duration-300 hover:bg-primary-container/80"
                         style={{ height: `${expenseHeight}%`, minHeight: point.expense > 0 ? "6px" : "0" }}
                       />
                     </div>
-                    <span className="text-[10px] text-gray-400 font-medium">
+                    <span className="text-[10px] text-on-surface-variant/70 font-medium">
                       {point.day}
                     </span>
                   </div>
@@ -86,16 +86,16 @@ export function QuickChart({ data, loading }: QuickChartProps) {
             </div>
 
             {/* Summary */}
-            <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-2 gap-4">
+            <div className="mt-4 pt-4 border-t border-outline-variant/60 grid grid-cols-2 gap-4">
               <div>
-                <p className="text-xs text-gray-500">Total Pemasukan</p>
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-xs text-on-surface-variant">Total Pemasukan</p>
+                <p className="text-sm font-semibold text-on-surface">
                   {formatCurrency(data.reduce((sum, d) => sum + d.income, 0))}
                 </p>
               </div>
               <div>
-                <p className="text-xs text-gray-500">Total Pengeluaran</p>
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-xs text-on-surface-variant">Total Pengeluaran</p>
+                <p className="text-sm font-semibold text-on-surface">
                   {formatCurrency(data.reduce((sum, d) => sum + d.expense, 0))}
                 </p>
               </div>

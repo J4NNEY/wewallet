@@ -1,17 +1,62 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
   --color-background: #fef7f9;
   --color-foreground: #111827;
+
+  /* Primary — Soft Pink */
   --color-primary: #ffb6c9;
   --color-primary-hover: #ff9db5;
-  --color-primary-light: #fff0f4;
+  --color-primary-container: #e85d8a;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #ffffff;
+  --color-primary-fixed: #fff0f4;
+  --color-on-primary-fixed: #d14b7a;
+
+  /* Secondary — Mint */
+  --color-secondary: #006b5f;
+  --color-secondary-container: #62fae3;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #00201c;
+
+  /* Tertiary — Indigo */
+  --color-tertiary: #4648d4;
+  --color-tertiary-container: #6063ee;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-fixed: #e1e0ff;
+  --color-on-tertiary-fixed: #07006c;
+
+  /* Surfaces */
+  --color-surface: #f7f9fb;
+  --color-surface-dim: #d8dadc;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f2f4f6;
+  --color-surface-container: #eceef0;
+  --color-surface-container-high: #e6e8ea;
+  --color-surface-container-highest: #e0e3e5;
+  --color-on-surface: #191c1e;
+  --color-on-surface-variant: #5b3f43;
+
+  /* Outline */
+  --color-outline: #8f6f73;
+  --color-outline-variant: #e4bdc2;
+
+  /* Error */
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+
+  /* Compatibility aliases used across components */
   --color-primary-text: #e85d8a;
   --color-primary-text-hover: #d14b7a;
+  --color-primary-light: #fff0f4;
   --color-soft: #fff7fa;
   --color-soft-strong: #ffe9ef;
   --color-line: #ffe4ec;
+
   --shadow-card: 0 1px 3px rgb(0 0 0 / 0.04), 0 10px 30px -15px rgb(232 93 138 / 0.2);
   --shadow-lift: 0 14px 34px -14px rgb(232 93 138 / 0.4);
 }
@@ -28,7 +73,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Soft gradient helpers (no emoji, used across cards & hero sections) */
+/* Soft gradient helpers (used across cards & hero sections) */
 .bg-gradient-soft {
   background-image: linear-gradient(180deg, #ffffff 0%, #fff7fa 100%);
 }
@@ -47,13 +92,13 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  color: #111827;
-  font-weight: 600;
+  color: #191c1e;
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 
 p, span, label, li, td, th {
-  color: #4b5563;
+  color: #5b3f43;
   line-height: 1.6;
 }
 
@@ -88,7 +133,7 @@ a:hover {
 
 /* Selection */
 ::selection {
-  background: #fce7f3;
+  background: #ffe9ef;
   color: #111827;
 }
 

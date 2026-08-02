@@ -3,16 +3,19 @@ import { forwardRef, ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e85d8a] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center rounded-xl text-sm font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-[#ffb6c9] text-white hover:bg-[#ff9db5] shadow-card hover:shadow-lift",
-        destructive: "bg-red-500 text-white hover:bg-red-600 shadow-sm",
-        outline: "border border-[#ffe4ec] bg-white hover:bg-[#fff7fa] text-gray-700",
-        secondary: "bg-[#fff0f4] text-[#d14b7a] hover:bg-[#ffe9ef]",
-        ghost: "hover:bg-[#fff7fa] text-gray-700",
-        link: "text-[#e85d8a] underline-offset-4 hover:underline hover:text-[#d14b7a]",
+        default: "bg-primary text-on-primary hover:bg-primary-hover shadow-card hover:shadow-lift",
+        destructive: "bg-error text-on-error hover:bg-error/90 shadow-sm",
+        outline: "border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low text-on-surface",
+        secondary: "bg-primary-fixed text-on-primary-fixed hover:bg-primary-fixed/70",
+        ghost: "hover:bg-surface-container-low text-on-surface",
+        link: "text-primary-text underline-offset-4 hover:underline hover:text-primary-text-hover",
+        operator: "bg-primary-container text-on-primary-container hover:bg-primary-container/90",
+        key: "bg-surface-container-lowest text-on-surface shadow-card hover:bg-surface-container-low",
+        muted: "bg-surface-container text-on-surface-variant hover:bg-surface-container-high",
       },
       size: {
         default: "h-10 px-4 py-2",

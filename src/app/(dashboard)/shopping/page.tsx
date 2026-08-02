@@ -19,7 +19,7 @@ import {
   Download,
   FileSpreadsheet,
 } from "lucide-react";
-import { formatDate, formatCurrency } from "@/lib/utils";
+import { formatDate, formatCurrency, cn } from "@/lib/utils";
 import { exportShoppingListToPDF } from "@/lib/export/pdf";
 import { exportShoppingListToExcel } from "@/lib/export/excel";
 import { shoppingListSchema, shoppingItemSchema } from "@/lib/validations";
@@ -282,8 +282,8 @@ export default function ShoppingPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <PageHeader title="Daftar Belanja" description="Daftar belanja kamu">
-        <Button onClick={() => setShowCreateModal(true)} size="sm">
+      <PageHeader label="Personal Assistant" title="Daftar Belanja">
+        <Button onClick={() => setShowCreateModal(true)} className="rounded-full h-12 px-6">
           <Plus className="h-4 w-4 mr-1" />
           Buat Daftar
         </Button>
@@ -380,7 +380,7 @@ export default function ShoppingPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Lists Panel */}
         <div className="lg:col-span-1 space-y-4">
-          <h2 className="font-semibold text-gray-900">Daftar Saya</h2>
+          <h2 className="font-bold text-on-surface">Daftar Saya</h2>
           {loading ? (
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
@@ -398,19 +398,21 @@ export default function ShoppingPage() {
               {lists.map((list) => (
                 <Card
                   key={list.id}
-                  className={`cursor-pointer transition-all hover:shadow-md ${
-                    selectedList === list.id ? "ring-2 ring-[#ffb6c9]" : ""
-                  } ${list.is_completed ? "opacity-60" : ""}`}
+                  className={cn(
+                    "cursor-pointer transition-all hover:shadow-lift",
+                    selectedList === list.id ? "ring-2 ring-primary" : "",
+                    list.is_completed && "opacity-60"
+                  )}
                   onClick={() => setSelectedList(list.id)}
                 >
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          {list.is_completed && <Check className="h-4 w-4 text-[#e85d8a]" />}
-                          <p className="font-medium text-gray-900 truncate">{list.name}</p>
+                          {list.is_completed && <Check className="h-4 w-4 text-primary-text" />}
+                          <p className="font-semibold text-on-surface truncate">{list.name}</p>
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">{formatDate(list.created_at)}</p>
+                        <p className="text-xs text-on-surface-variant mt-1">{formatDate(list.created_at)}</p>
                       </div>
                       <div className="flex items-center gap-1">
                         <Button
@@ -434,7 +436,7 @@ export default function ShoppingPage() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-red-500"
+                          className="h-8 w-8 text-error"
                           onClick={(e) => { e.stopPropagation(); handleDeleteList(list.id); }}
                           title="Hapus"
                         >
@@ -456,7 +458,7 @@ export default function ShoppingPage() {
               <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <CardTitle className="text-base sm:text-lg">{selectedListData?.name}</CardTitle>
-                  <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                  <p className="text-xs sm:text-sm text-on-surface-variant mt-1">
                     {checkedCount}/{items.length} item - Total: {formatCurrency(totalEstimate)}
                   </p>
                 </div>
@@ -464,6 +466,7 @@ export default function ShoppingPage() {
                   <Button
                     variant="outline"
                     size="sm"
+                    className="rounded-full"
                     onClick={() => selectedListData && exportShoppingListToPDF(selectedListData, items)}
                   >
                     <Download className="h-4 w-4 mr-1" />
@@ -472,12 +475,13 @@ export default function ShoppingPage() {
                   <Button
                     variant="outline"
                     size="sm"
+                    className="rounded-full"
                     onClick={() => selectedListData && exportShoppingListToExcel(selectedListData, items)}
                   >
                     <FileSpreadsheet className="h-4 w-4 mr-1" />
                     Excel
                   </Button>
-                  <Button size="sm" onClick={() => setShowAddItem(true)}>
+                  <Button size="sm" className="rounded-full" onClick={() => setShowAddItem(true)}>
                     <Plus className="h-4 w-4 mr-1" />
                     Item
                   </Button>
@@ -506,33 +510,38 @@ export default function ShoppingPage() {
                     {items.map((item) => (
                       <div
                         key={item.id}
-                        className={`flex items-center gap-3 p-3 rounded-lg border ${
-                          item.is_checked ? "bg-[#fff0f4] border-[#ffb6c9]/30" : "bg-white border-gray-200"
-                        }`}
+                        className={cn(
+                          "flex items-center gap-3 p-3 rounded-xl border transition-colors",
+                          item.is_checked
+                            ? "bg-primary-fixed border-primary/30"
+                            : "bg-surface-container-lowest border-outline-variant/60"
+                        )}
                       >
                         <button
                           onClick={() => handleToggleItem(item)}
-                          className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center ${
-                            item.is_checked ? "bg-[#ffb6c9] border-[#ffb6c9]" : "border-gray-300"
-                          }`}
+                          className={cn(
+                            "flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors",
+                            item.is_checked ? "bg-primary border-primary" : "border-outline"
+                          )}
+                          aria-label={item.is_checked ? "Tandai belum dibeli" : "Tandai sudah dibeli"}
                         >
-                          {item.is_checked && <Check className="h-3 w-3 text-white" />}
+                          {item.is_checked && <Check className="h-3 w-3 text-on-primary" />}
                         </button>
                         <div className="flex-1 min-w-0">
-                          <p className={`font-medium ${item.is_checked ? "line-through text-gray-500" : "text-gray-900"}`}>
+                          <p className={cn("font-medium", item.is_checked ? "line-through text-on-surface-variant" : "text-on-surface")}>
                             {item.item_name}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-on-surface-variant">
                             {item.quantity} {item.unit || "pcs"} - {formatCurrency(item.estimated_price || 0)}/item
                           </p>
                         </div>
-                        <p className="text-sm font-semibold text-gray-900">
+                        <p className="text-sm font-bold text-on-surface">
                           {formatCurrency((item.estimated_price || 0) * (item.quantity || 1))}
                         </p>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-red-500"
+                          className="h-8 w-8 text-error"
                           onClick={() => handleDeleteItem(item.id)}
                           title="Hapus"
                         >

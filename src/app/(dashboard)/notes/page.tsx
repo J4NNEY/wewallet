@@ -9,6 +9,7 @@ import { Modal } from "@/components/ui/modal";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHeader } from "@/components/ui/page-header";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Chip } from "@/components/ui/chip";
 import { useToast } from "@/components/ui/toast";
 import {
   Plus,
@@ -22,6 +23,7 @@ import {
   Download,
   FileSpreadsheet,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
 import { exportNoteToPDF, exportNotesToPDF } from "@/lib/export/pdf";
 import { exportNotesToExcel } from "@/lib/export/excel";
@@ -177,48 +179,57 @@ export default function NotesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <PageHeader title="Catatan" description="Catatan kamu">
-        <Button variant="outline" size="sm" onClick={() => exportNotesToPDF(notes)}>
-          <Download className="h-4 w-4 mr-1" />
-          PDF
-        </Button>
-        <Button variant="outline" size="sm" onClick={() => exportNotesToExcel(notes)}>
-          <FileSpreadsheet className="h-4 w-4 mr-1" />
-          Excel
-        </Button>
-        <Button onClick={() => startEdit()} size="sm">
+      <PageHeader label="Your Vault" title="Catatan Kamu">
+        <Button onClick={() => startEdit()} className="rounded-full h-12 px-6">
           <Plus className="h-4 w-4 mr-1" />
           Baru
         </Button>
       </PageHeader>
 
+      {/* Export */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <button
+          onClick={() => exportNotesToPDF(notes)}
+          className="inline-flex items-center gap-2 rounded-full bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface hover:bg-surface-container transition-colors"
+        >
+          <FileText className="h-4 w-4 text-primary-text" aria-hidden="true" />
+          Export PDF
+        </button>
+        <button
+          onClick={() => exportNotesToExcel(notes)}
+          className="inline-flex items-center gap-2 rounded-full bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface hover:bg-surface-container transition-colors"
+        >
+          <FileSpreadsheet className="h-4 w-4 text-secondary" aria-hidden="true" />
+          Export Excel
+        </button>
+      </div>
+
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-on-surface-variant" />
           <Input
             placeholder="Cari catatan..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9"
+            className="pl-11"
           />
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {CATEGORIES.map((cat) => (
-            <Button
+            <Chip
               key={cat}
-              variant={selectedCategory === cat ? "default" : "outline"}
-              size="sm"
+              active={selectedCategory === cat}
               onClick={() => setSelectedCategory(cat)}
-              className="whitespace-nowrap"
             >
               {cat}
-            </Button>
+            </Chip>
           ))}
         </div>
         <Button
-          variant="ghost"
+          variant="outline"
           size="sm"
+          className="rounded-full"
           onClick={() => setSortBy(sortBy === "newest" ? "oldest" : "newest")}
         >
           {sortBy === "newest" ? "Terbaru" : "Terlama"}
@@ -250,15 +261,14 @@ export default function NotesPage() {
             error={validationErrors.title}
           />
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-on-surface mb-1">
               Kategori
             </label>
             <div className="flex gap-2 flex-wrap">
               {CATEGORIES.filter((c) => c !== "Semua").map((cat) => (
-                <Button
+                <Chip
                   key={cat}
-                  variant={editingNote?.category === cat ? "default" : "outline"}
-                  size="sm"
+                  active={editingNote?.category === cat}
                   onClick={() =>
                     setEditingNote((prev) => ({
                       ...prev!,
@@ -267,16 +277,16 @@ export default function NotesPage() {
                   }
                 >
                   {cat}
-                </Button>
+                </Chip>
               ))}
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-on-surface mb-1">
               Isi Catatan
             </label>
             <textarea
-              className="w-full min-h-[200px] rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e85d8a]"
+              className="w-full min-h-[200px] rounded-xl border border-outline-variant/60 bg-surface-container px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/70 focus:outline-none focus:bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20"
               placeholder="Tulis sesuatu..."
               value={editingNote?.content || ""}
               onChange={(e) =>
@@ -321,23 +331,24 @@ export default function NotesPage() {
           {notes.map((note) => (
             <Card
               key={note.id}
-              className={`group hover:shadow-md transition-shadow ${
-                note.is_pinned ? "ring-2 ring-[#ffb6c9]/30" : ""
-              }`}
+              className={cn(
+                "group hover:shadow-lift transition-shadow",
+                note.is_pinned && "ring-2 ring-primary/25"
+              )}
             >
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       {note.is_pinned && (
-                        <Pin className="h-3 w-3 text-[#e85d8a] flex-shrink-0" />
+                        <Pin className="h-3 w-3 text-primary-text flex-shrink-0" />
                       )}
                       <CardTitle className="text-base truncate">
                         {note.title}
                       </CardTitle>
                     </div>
                     {note.category && (
-                      <span className="inline-flex items-center gap-1 text-xs text-gray-500 mt-1">
+                      <span className="inline-flex items-center gap-1 text-xs text-on-surface-variant mt-1">
                         <Tag className="h-3 w-3" />
                         {note.category}
                       </span>
@@ -376,7 +387,7 @@ export default function NotesPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50"
+                      className="h-8 w-8 text-error hover:bg-error-container/40"
                       onClick={() => handleDelete(note.id)}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -385,10 +396,10 @@ export default function NotesPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-600 line-clamp-3">
+                <p className="text-sm text-on-surface-variant line-clamp-3">
                   {note.content || "Tidak ada isi"}
                 </p>
-                <p className="text-xs text-gray-400 mt-3">
+                <p className="text-xs text-on-surface-variant/70 mt-3">
                   {formatDate(note.created_at)}
                 </p>
               </CardContent>

@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { SerwistProvider } from "@serwist/turbopack/react";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const APP_NAME = "WeWallet";
@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${jakarta.variable} h-full`}>
+    <html lang="id" className={`${manrope.variable} h-full`}>
       <body className="min-h-full flex flex-col font-sans antialiased">
         <SerwistProvider swUrl="/serwist/sw.js">
           <Providers>{children}</Providers>

@@ -17,11 +17,11 @@ interface StatsCardProps {
 }
 
 const colorStyles = {
-  green: { bg: "bg-emerald-50", icon: "text-emerald-500" },
-  red: { bg: "bg-red-50", icon: "text-red-500" },
-  pink: { bg: "bg-[#fff0f4]", icon: "text-[#e85d8a]" },
-  blue: { bg: "bg-blue-50", icon: "text-blue-500" },
-  purple: { bg: "bg-purple-50", icon: "text-purple-500" },
+  green: { bg: "bg-secondary-container/40", icon: "text-secondary" },
+  red: { bg: "bg-error-container/60", icon: "text-error" },
+  pink: { bg: "bg-primary-fixed", icon: "text-primary-text" },
+  blue: { bg: "bg-tertiary-fixed", icon: "text-tertiary" },
+  purple: { bg: "bg-tertiary-fixed", icon: "text-tertiary" },
 };
 
 export function StatsCard({ title, value, icon, trend, color, hero }: StatsCardProps) {
@@ -43,52 +43,52 @@ export function StatsCard({ title, value, icon, trend, color, hero }: StatsCardP
         )}
         <div className="relative flex items-start justify-between">
           <div className="flex-1 min-w-0">
-            <p
-              className={cn(
-                "text-xs sm:text-sm font-medium",
-                hero ? "text-white/90" : "text-gray-500"
-              )}
-            >
-              {title}
-            </p>
-            <p
-              className={cn(
-                "text-lg sm:text-2xl font-bold mt-1 sm:mt-2 truncate",
-                hero ? "text-white" : "text-gray-900"
-              )}
-            >
-              {value}
-            </p>
-            {trend && (
-              <div className="flex items-center gap-1 mt-1 sm:mt-2">
-                {trend.isPositive ? (
-                  <span
-                    className={cn(
-                      "inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium",
-                      hero ? "bg-white/25 text-white" : "text-emerald-600 bg-emerald-50"
-                    )}
-                  >
-                    <TrendingUp className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
-                    +{trend.value}%
-                  </span>
-                ) : trend.value === 0 ? (
-                  <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium text-gray-600 bg-gray-100">
-                    <Minus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
-                    0%
-                  </span>
-                ) : (
-                  <span
-                    className={cn(
-                      "inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium",
-                      hero ? "bg-white/25 text-white" : "text-red-600 bg-red-50"
-                    )}
-                  >
-                    <TrendingDown className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
-                    {trend.value}%
-                  </span>
+              <p
+                className={cn(
+                  "text-xs sm:text-sm font-medium",
+                  hero ? "text-white/90" : "text-on-surface-variant"
                 )}
-              </div>
-            )}
+              >
+                {title}
+              </p>
+              <p
+                className={cn(
+                  "text-lg sm:text-2xl font-bold mt-1 sm:mt-2 truncate",
+                  hero ? "text-white" : "text-on-surface"
+                )}
+              >
+                {value}
+              </p>
+              {trend && (
+                <div className="flex items-center gap-1 mt-1 sm:mt-2">
+                  {trend.isPositive ? (
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium",
+                        hero ? "bg-white/25 text-white" : "text-secondary bg-secondary-container/40"
+                      )}
+                    >
+                      <TrendingUp className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                      +{trend.value}%
+                    </span>
+                  ) : trend.value === 0 ? (
+                    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium text-primary-text bg-primary-fixed">
+                      <Minus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                      0%
+                    </span>
+                  ) : (
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium",
+                        hero ? "bg-white/25 text-white" : "text-error bg-error-container/60"
+                      )}
+                    >
+                      <TrendingDown className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                      {trend.value}%
+                    </span>
+                  )}
+                </div>
+              )}
           </div>
           <div
             className={cn(

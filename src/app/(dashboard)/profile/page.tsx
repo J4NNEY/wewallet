@@ -128,8 +128,8 @@ export default function ProfilePage() {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#fff0f4] flex items-center justify-center">
-              <User className="h-5 w-5 text-[#e85d8a]" />
+            <div className="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center">
+              <User className="h-5 w-5 text-primary-text" />
             </div>
             <div>
               <CardTitle className="text-base">Informasi Profil</CardTitle>

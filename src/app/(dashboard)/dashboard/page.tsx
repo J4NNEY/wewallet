@@ -8,14 +8,14 @@ import {
   ShoppingCart, 
   Bell, 
   DollarSign,
-  ArrowUpRight,
   ArrowDownRight,
-  Wallet,
+  Eye,
+  EyeOff,
+  TrendingUp,
 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  StatsCard,
   ModuleCard,
   ActivityFeed,
   QuickChart,
@@ -50,6 +50,8 @@ export default function DashboardPage() {
   
   // Upcoming reminders
   const [upcomingReminders, setUpcomingReminders] = useState<UpcomingReminder[]>([]);
+
+  const [showBalance, setShowBalance] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -339,6 +341,10 @@ export default function DashboardPage() {
     year: "numeric",
   });
 
+  const balance = monthlyIncome - monthlyExpense;
+  const formattedBalance = showBalance ? formatCurrency(balance) : "Rp ••••••";
+  const formattedExpense = showBalance ? formatCurrency(monthlyExpense) : "Rp ••••••";
+
   const modules = [
     {
       name: "Kalkulator",
@@ -399,16 +405,15 @@ export default function DashboardPage() {
           <Skeleton className="h-7 w-64" />
           <Skeleton className="h-4 w-48" />
         </div>
-        <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 scrollbar-hide">
-          {[1, 2, 3].map((i) => (
-            <Skeleton key={i} className="h-32 w-[160px] flex-shrink-0 rounded-2xl sm:w-auto" />
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Skeleton className="h-44 rounded-xl" />
+          <Skeleton className="h-44 rounded-xl" />
         </div>
-        <Skeleton className="h-20 rounded-2xl" />
-        <Skeleton className="h-72 rounded-2xl" />
+        <Skeleton className="h-16 rounded-xl" />
+        <Skeleton className="h-72 rounded-xl" />
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <Skeleton key={i} className="h-36 rounded-2xl" />
+            <Skeleton key={i} className="h-36 rounded-xl" />
           ))}
         </div>
       </div>
@@ -416,49 +421,95 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-lg sm:text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-on-surface">
             {getGreeting()},{" "}
-            <span className="text-gradient-pink">{firstName}!</span>
+            <span className="text-primary-text">{firstName}!</span>
           </h1>
-          <p className="text-xs sm:text-sm text-gray-500 mt-0.5">{todayLabel}</p>
+          <p className="text-sm text-on-surface-variant mt-1">{todayLabel}</p>
         </div>
-        <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-pink flex items-center justify-center text-white font-bold shadow-card">
+        <div className="hidden sm:flex flex-shrink-0 w-12 h-12 rounded-full bg-primary-fixed items-center justify-center text-primary-text font-extrabold shadow-card">
           {userName.charAt(0).toUpperCase()}
         </div>
       </div>
 
-      {/* Stats Cards - Horizontal scroll on mobile */}
-      <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 scrollbar-hide">
-        <div className="flex-shrink-0 w-[160px] sm:w-auto">
-          <StatsCard
-            title="Pemasukan"
-            value={formatCurrency(monthlyIncome)}
-            icon={<ArrowUpRight className="h-5 w-5" />}
-            trend={{ value: Math.abs(incomeTrend), isPositive: incomeTrend >= 0 }}
-            color="green"
+      {/* Balance & Expense */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="relative overflow-hidden rounded-xl bg-gradient-pink shadow-lift">
+          <div
+            aria-hidden="true"
+            className="absolute -right-10 -top-14 h-44 w-44 rounded-full bg-white/15"
           />
+          <div
+            aria-hidden="true"
+            className="absolute right-24 -bottom-16 h-32 w-32 rounded-full bg-white/10"
+          />
+          <div className="relative p-5 sm:p-6">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold uppercase tracking-wide text-white/80">
+                Saldo
+              </span>
+              <button
+                onClick={() => setShowBalance(!showBalance)}
+                className="p-2 rounded-full hover:bg-white/15 transition-colors"
+                aria-label={showBalance ? "Sembunyikan saldo" : "Tampilkan saldo"}
+              >
+                {showBalance ? (
+                  <EyeOff className="h-4 w-4 text-white/80" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-4 w-4 text-white/80" aria-hidden="true" />
+                )}
+              </button>
+            </div>
+            <p className="mt-2 text-3xl sm:text-4xl font-extrabold text-white tabular-nums">
+              {formattedBalance}
+            </p>
+            <div className="mt-4 flex items-center gap-4 text-xs font-medium text-white/85">
+              <span className="inline-flex items-center gap-1">
+                <TrendingUp className="h-3.5 w-3.5" aria-hidden="true" />
+                +{Math.abs(incomeTrend)}%
+              </span>
+              <span>vs bulan lalu</span>
+            </div>
+          </div>
         </div>
-        <div className="flex-shrink-0 w-[160px] sm:w-auto">
-          <StatsCard
-            title="Pengeluaran"
-            value={formatCurrency(monthlyExpense)}
-            icon={<ArrowDownRight className="h-5 w-5" />}
-            trend={{ value: Math.abs(expenseTrend), isPositive: expenseTrend <= 0 }}
-            color="red"
-          />
-        </div>
-        <div className="flex-shrink-0 w-[160px] sm:w-auto">
-          <StatsCard
-            title="Saldo"
-            value={formatCurrency(monthlyIncome - monthlyExpense)}
-            icon={<DollarSign className="h-5 w-5" />}
-            color="pink"
-            hero
-          />
+
+        <div className="rounded-xl bg-primary-fixed p-5 sm:p-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-error-container/60 text-error flex items-center justify-center flex-shrink-0">
+              <ArrowDownRight className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-medium text-on-surface-variant">
+                Pengeluaran Bulan Ini
+              </p>
+              <p className="mt-0.5 text-xl sm:text-2xl font-extrabold text-on-surface tabular-nums truncate">
+                {formattedExpense}
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 flex items-center justify-between text-xs">
+            <span className="text-on-surface-variant">
+              {Math.abs(expenseTrend) === 0
+                ? "Tidak ada perubahan"
+                : expenseTrend > 0
+                  ? "Naik dibanding bulan lalu"
+                  : "Turun dibanding bulan lalu"}
+            </span>
+            <span
+              className={`inline-flex items-center gap-0.5 font-semibold ${expenseTrend > 0 ? "text-error" : "text-secondary"}`}
+            >
+              {expenseTrend > 0 ? (
+                <ArrowDownRight className="h-3.5 w-3.5" aria-hidden="true" />
+              ) : (
+                <TrendingUp className="h-3.5 w-3.5" aria-hidden="true" />
+              )}
+              {Math.abs(expenseTrend)}%
+            </span>
+          </div>
         </div>
       </div>
 
@@ -470,7 +521,7 @@ export default function DashboardPage() {
 
       {/* Module Cards - 2 columns on mobile */}
       <div>
-        <h2 className="text-base font-semibold text-gray-900 mb-3">Modul</h2>
+        <h2 className="text-base font-bold text-on-surface mb-3">Modul</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {modules.map((mod) => (
             <ModuleCard

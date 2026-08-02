@@ -3,11 +3,12 @@ import { cn } from "@/lib/utils";
 interface PageHeaderProps {
   title: string;
   description?: string;
+  label?: string;
   children?: React.ReactNode;
   className?: string;
 }
 
-export function PageHeader({ title, description, children, className }: PageHeaderProps) {
+export function PageHeader({ title, description, label, children, className }: PageHeaderProps) {
   return (
     <div
       className={cn(
@@ -16,9 +17,12 @@ export function PageHeader({ title, description, children, className }: PageHead
       )}
     >
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{title}</h1>
+        {label && (
+          <p className="text-xs font-bold uppercase tracking-widest text-primary-text">{label}</p>
+        )}
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-on-surface">{title}</h1>
         {description && (
-          <p className="text-sm text-gray-500 mt-0.5">{description}</p>
+          <p className="text-sm text-on-surface-variant mt-1">{description}</p>
         )}
       </div>
       {children && <div className="flex flex-wrap gap-2">{children}</div>}

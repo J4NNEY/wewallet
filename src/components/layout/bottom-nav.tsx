@@ -24,7 +24,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 safe-area-bottom lg:hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl border-t border-outline-variant/40 safe-area-bottom lg:hidden"
       role="navigation"
       aria-label="Navigasi utama"
     >
@@ -37,12 +37,14 @@ export function BottomNav() {
               href={item.href}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 w-full h-full transition-colors",
-                isActive ? "text-[#e85d8a]" : "text-gray-400"
+                isActive ? "text-primary-text" : "text-on-surface-variant"
               )}
               aria-current={isActive ? "page" : undefined}
             >
-              <item.icon className={cn("h-5 w-5", isActive && "text-[#e85d8a]")} aria-hidden="true" />
-              <span className="text-[10px] font-medium">{item.name}</span>
+              <item.icon className={cn("h-6 w-6", isActive ? "text-primary-text" : "")} aria-hidden="true" />
+              <span className={cn("text-[10px]", isActive ? "font-bold" : "font-medium")}>
+                {item.name}
+              </span>
             </Link>
           );
         })}

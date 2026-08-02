@@ -42,7 +42,7 @@ export default function Home() {
   if (checking) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#ffb6c9]" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
       </div>
     );
   }
@@ -52,7 +52,7 @@ export default function Home() {
       {/* Decorative blobs */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-28 right-0 h-96 w-96 rounded-full bg-[#ffb6c9]/20 blur-3xl"
+        className="pointer-events-none absolute -top-28 right-0 h-96 w-96 rounded-full bg-primary/15 blur-3xl"
       />
       <div
         aria-hidden="true"
@@ -95,13 +95,13 @@ export default function Home() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="bg-white/70 backdrop-blur rounded-2xl border border-[#ffe4ec] p-5 shadow-card"
+              className="bg-white/70 backdrop-blur rounded-2xl border border-outline-variant/60 p-5 shadow-card"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#fff0f4] flex items-center justify-center mb-3">
-                <feature.icon className="h-5 w-5 text-[#e85d8a]" />
+              <div className="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center mb-3">
+                <feature.icon className="h-5 w-5 text-primary-text" />
               </div>
-              <h3 className="font-semibold text-gray-900 text-sm">{feature.title}</h3>
-              <p className="text-xs text-gray-500 mt-1">{feature.description}</p>
+              <h3 className="font-semibold text-on-surface text-sm">{feature.title}</h3>
+              <p className="text-xs text-on-surface-variant mt-1">{feature.description}</p>
             </div>
           ))}
         </div>

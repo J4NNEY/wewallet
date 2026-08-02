@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
       <body style="margin: 0; padding: 0; background-color: #f9fafb; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
           <!-- Header -->
-          <div style="text-align: center; padding: 30px 0; background: linear-gradient(135deg, #ffb6c9, #8b5cf6); border-radius: 16px 16px 0 0;">
+          <div style="text-align: center; padding: 30px 0; background: linear-gradient(135deg, #ffb6c9, #ffd3e0); border-radius: 16px 16px 0 0;">
             <h1 style="color: white; margin: 0; font-size: 24px;">Rekap Keuangan</h1>
             <p style="color: rgba(255,255,255,0.8); margin: 8px 0 0 0; font-size: 14px;">${periodLabel}</p>
           </div>

@@ -241,25 +241,25 @@ export default function CalculatorPage() {
   };
 
   const buttons = [
-    { label: "C", action: clear, variant: "secondary" as const },
-    { label: "CE", action: clearEntry, variant: "secondary" as const },
-    { label: "%", action: handlePercent, variant: "secondary" as const },
-    { label: "÷", action: () => performOperation("÷"), variant: "default" as const },
-    { label: "7", action: () => inputNumber("7") },
-    { label: "8", action: () => inputNumber("8") },
-    { label: "9", action: () => inputNumber("9") },
-    { label: "×", action: () => performOperation("×"), variant: "default" as const },
-    { label: "4", action: () => inputNumber("4") },
-    { label: "5", action: () => inputNumber("5") },
-    { label: "6", action: () => inputNumber("6") },
-    { label: "-", action: () => performOperation("-"), variant: "default" as const },
-    { label: "1", action: () => inputNumber("1") },
-    { label: "2", action: () => inputNumber("2") },
-    { label: "3", action: () => inputNumber("3") },
-    { label: "+", action: () => performOperation("+"), variant: "default" as const },
-    { label: "±", action: handlePlusMinus },
-    { label: "0", action: () => inputNumber("0") },
-    { label: ".", action: inputDot },
+    { label: "C", action: clear, variant: "muted" as const },
+    { label: "CE", action: clearEntry, variant: "muted" as const },
+    { label: "%", action: handlePercent, variant: "muted" as const },
+    { label: "÷", action: () => performOperation("÷"), variant: "operator" as const },
+    { label: "7", action: () => inputNumber("7"), variant: "key" as const },
+    { label: "8", action: () => inputNumber("8"), variant: "key" as const },
+    { label: "9", action: () => inputNumber("9"), variant: "key" as const },
+    { label: "×", action: () => performOperation("×"), variant: "operator" as const },
+    { label: "4", action: () => inputNumber("4"), variant: "key" as const },
+    { label: "5", action: () => inputNumber("5"), variant: "key" as const },
+    { label: "6", action: () => inputNumber("6"), variant: "key" as const },
+    { label: "-", action: () => performOperation("-"), variant: "operator" as const },
+    { label: "1", action: () => inputNumber("1"), variant: "key" as const },
+    { label: "2", action: () => inputNumber("2"), variant: "key" as const },
+    { label: "3", action: () => inputNumber("3"), variant: "key" as const },
+    { label: "+", action: () => performOperation("+"), variant: "operator" as const },
+    { label: "±", action: handlePlusMinus, variant: "key" as const },
+    { label: "0", action: () => inputNumber("0"), variant: "key" as const },
+    { label: ".", action: inputDot, variant: "key" as const },
     { label: "=", action: handleEquals, variant: "default" as const },
   ];
 
@@ -267,8 +267,8 @@ export default function CalculatorPage() {
     <div className="max-w-lg mx-auto space-y-4">
       <PageHeader title="Kalkulator" description="Hitung cepat & tersimpan">
         <Button
-          variant="ghost"
-          size="sm"
+          variant="outline"
+          className="rounded-full h-12 px-5"
           onClick={() => setShowHistory(!showHistory)}
         >
           <History className="h-4 w-4 mr-2" />
@@ -278,25 +278,25 @@ export default function CalculatorPage() {
 
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Calculator */}
-        <Card className="flex-1">
+        <Card className="flex-1 rounded-3xl">
           <CardContent className="p-3 sm:p-4">
             {/* Display */}
-            <div className="bg-gradient-soft border border-[#ffe4ec] rounded-xl p-3 sm:p-4 mb-3 sm:mb-4">
-              <div className="text-right text-sm text-gray-500 h-6 truncate">
+            <div className="bg-surface-container rounded-2xl p-5 mb-4">
+              <div className="text-right text-sm text-on-surface-variant h-6 truncate">
                 {expression}
               </div>
-              <div className="text-right text-2xl sm:text-3xl font-bold text-gray-900 truncate">
+              <div className="text-right text-3xl sm:text-4xl font-extrabold text-on-surface tabular-nums truncate mt-1">
                 {display}
               </div>
             </div>
 
             {/* Buttons */}
-            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
+            <div className="grid grid-cols-4 gap-2 sm:gap-3">
               {buttons.map((btn) => (
                 <Button
                   key={btn.label}
-                  variant={btn.variant || "outline"}
-                  className="h-12 sm:h-14 text-base sm:text-lg font-semibold"
+                  variant={btn.variant || "key"}
+                  className="h-14 sm:h-16 text-base sm:text-lg font-bold rounded-2xl"
                   onClick={btn.action}
                 >
                   {btn.label}
@@ -307,7 +307,7 @@ export default function CalculatorPage() {
             {/* Backspace */}
             <Button
               variant="ghost"
-              className="w-full mt-2 text-red-500 hover:text-red-600 hover:bg-red-50"
+              className="w-full mt-3 text-error hover:bg-error-container/40"
               onClick={backspace}
             >
               Hapus
@@ -326,7 +326,7 @@ export default function CalculatorPage() {
                     <Save className="h-4 w-4" />
                   </Button>
                   <Button variant="ghost" size="sm" onClick={clearHistory} title="Hapus semua">
-                    <Trash2 className="h-4 w-4 text-red-500" />
+                    <Trash2 className="h-4 w-4 text-error" />
                   </Button>
                 </div>
               </div>
@@ -349,12 +349,12 @@ export default function CalculatorPage() {
                   {history.map((item) => (
                     <div
                       key={item.id || item.expression}
-                      className="group p-2 rounded hover:bg-gray-50 cursor-pointer flex items-start justify-between gap-2"
+                      className="group p-2 rounded hover:bg-surface-container-low cursor-pointer flex items-start justify-between gap-2"
                       onClick={() => setDisplay(String(item.result))}
                     >
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs text-gray-500 truncate">{item.expression}</div>
-                        <div className="text-sm font-semibold">= {item.result}</div>
+                        <div className="text-xs text-on-surface-variant truncate">{item.expression}</div>
+                        <div className="text-sm font-semibold text-on-surface">= {item.result}</div>
                       </div>
                       {item.id && (
                         <button
@@ -362,10 +362,10 @@ export default function CalculatorPage() {
                             e.stopPropagation();
                             deleteHistoryItem(item.id!);
                           }}
-                          className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-50 transition-opacity"
+                          className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-error-container/40 transition-opacity"
                           title="Hapus"
                         >
-                          <Trash2 className="h-3 w-3 text-red-400" />
+                          <Trash2 className="h-3 w-3 text-error/70" />
                         </button>
                       )}
                     </div>

@@ -4,28 +4,28 @@ import Link from "next/link";
 import { StickyNote, DollarSign, Bell, Calculator, ShoppingCart } from "lucide-react";
 
 const quickActions = [
-  { name: "Catatan", href: "/notes", icon: StickyNote, color: "bg-purple-100 text-purple-600" },
-  { name: "Keuangan", href: "/finance", icon: DollarSign, color: "bg-emerald-100 text-emerald-600" },
-  { name: "Belanja", href: "/shopping", icon: ShoppingCart, color: "bg-orange-100 text-orange-600" },
-  { name: "Reminder", href: "/reminders", icon: Bell, color: "bg-blue-100 text-blue-600" },
-  { name: "Kalkulator", href: "/calculator", icon: Calculator, color: "bg-[#fff0f4] text-[#e8849e]" },
+  { name: "Catatan", href: "/notes", icon: StickyNote, color: "bg-tertiary-fixed text-tertiary" },
+  { name: "Keuangan", href: "/finance", icon: DollarSign, color: "bg-secondary-container text-secondary" },
+  { name: "Belanja", href: "/shopping", icon: ShoppingCart, color: "bg-primary-fixed text-primary-text" },
+  { name: "Reminder", href: "/reminders", icon: Bell, color: "bg-soft-strong text-primary-text" },
+  { name: "Kalkulator", href: "/calculator", icon: Calculator, color: "bg-primary text-on-primary" },
 ];
 
 export function QuickActions() {
   return (
-    <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
+    <div className="grid grid-cols-5 gap-2">
       {quickActions.map((action) => (
         <Link
           key={action.name}
           href={action.href}
-          className="flex-shrink-0"
+          className="flex flex-col items-center gap-1.5 group"
         >
-          <div className="flex flex-col items-center gap-1.5 w-16 sm:w-20">
-            <div className={`w-12 h-12 rounded-2xl ${action.color} flex items-center justify-center shadow-card transition-transform duration-150 active:scale-95`}>
-              <action.icon className="h-5 w-5" />
-            </div>
-            <span className="text-[11px] font-medium text-gray-700 text-center">{action.name}</span>
+          <div
+            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full ${action.color} flex items-center justify-center shadow-card transition-transform duration-150 active:scale-95 group-hover:-translate-y-0.5`}
+          >
+            <action.icon className="h-5 w-5" />
           </div>
+          <span className="text-[11px] font-medium text-on-surface text-center">{action.name}</span>
         </Link>
       ))}
     </div>

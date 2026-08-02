@@ -176,12 +176,12 @@ export function FinanceCharts({ records }: FinanceChartsProps) {
             <div className="space-y-4">
               <div className="flex justify-end gap-4 text-xs">
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded bg-[#ffb6c9]" />
-                  <span className="text-gray-600">Pemasukan</span>
+                  <div className="w-3 h-3 rounded bg-primary" />
+                  <span className="text-on-surface-variant">Pemasukan</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded bg-red-400" />
-                  <span className="text-gray-600">Pengeluaran</span>
+                  <div className="w-3 h-3 rounded bg-surface-dim" />
+                  <span className="text-on-surface-variant">Pengeluaran</span>
                 </div>
               </div>
 
@@ -193,21 +193,21 @@ export function FinanceCharts({ records }: FinanceChartsProps) {
                   >
                     <div className="w-full flex gap-0.5 items-end justify-center h-40">
                       <div
-                        className="flex-1 bg-[#ffb6c9] rounded-t"
+                        className="flex-1 bg-primary rounded-t"
                         style={{
                           height: `${(day.income / maxDailyValue) * 100}%`,
                           minHeight: day.income > 0 ? "4px" : "0",
                         }}
                       />
                       <div
-                        className="flex-1 bg-red-400 rounded-t"
+                        className="flex-1 bg-surface-dim rounded-t"
                         style={{
                           height: `${(day.expense / maxDailyValue) * 100}%`,
                           minHeight: day.expense > 0 ? "4px" : "0",
                         }}
                       />
                     </div>
-                    <span className="text-xs text-gray-500 truncate w-full text-center">
+                    <span className="text-xs text-on-surface-variant truncate w-full text-center">
                       {day.date}
                     </span>
                   </div>

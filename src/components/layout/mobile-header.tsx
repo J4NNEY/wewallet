@@ -9,8 +9,6 @@ import {
   User,
   Settings,
   LogOut,
-  Menu,
-  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -75,27 +73,26 @@ export function MobileHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 lg:hidden">
-        <div className="flex items-center justify-between h-14 px-4">
-          <Link href="/dashboard" className="flex items-center gap-2" aria-label="WeWallet Home">
-            <div className="w-8 h-8 rounded-xl bg-gradient-pink flex items-center justify-center shadow-card">
-              <Wallet className="h-4 w-4 text-white" aria-hidden="true" />
+      <header className="sticky top-0 z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/40 lg:hidden">
+        <div className="flex items-center justify-between h-16 px-4 sm:px-6">
+          <Link href="/dashboard" className="flex items-center gap-2.5" aria-label="WeWallet Home">
+            <div className="w-9 h-9 rounded-xl bg-gradient-pink flex items-center justify-center shadow-card">
+              <Wallet className="h-4.5 w-4.5 text-white" aria-hidden="true" />
             </div>
-            <span className="text-lg font-semibold text-gray-900">WeWallet</span>
+            <span className="text-lg font-extrabold tracking-tight text-primary-text">WeWallet</span>
           </Link>
           <button
             ref={buttonRef}
             onClick={() => setShowMenu(!showMenu)}
-            className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+            className="flex items-center gap-2 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors py-1.5 pl-1.5 pr-3"
             aria-expanded={showMenu}
             aria-haspopup="true"
             aria-label={showMenu ? "Tutup menu" : "Buka menu"}
           >
-            {showMenu ? (
-              <X className="h-5 w-5" aria-hidden="true" />
-            ) : (
-              <Menu className="h-5 w-5" aria-hidden="true" />
-            )}
+            <span className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+              <User className="h-4 w-4 text-white" aria-hidden="true" />
+            </span>
+            <span className="hidden sm:block text-sm font-semibold text-on-surface">Menu</span>
           </button>
         </div>
       </header>
@@ -110,9 +107,9 @@ export function MobileHeader() {
           />
           <div
             ref={menuRef}
-            className="fixed top-14 right-4 z-40 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-1 lg:hidden"
+            className="fixed top-16 right-4 z-40 w-48 bg-surface-container-lowest rounded-xl shadow-lift border border-outline-variant/60 py-1 lg:hidden"
             role="menu"
-            aria-orientatioln="vertical"
+            aria-orientation="vertical"
             aria-label="Menu navigasi"
           >
             {moreItems.map((item) => (
@@ -122,22 +119,21 @@ export function MobileHeader() {
                 onClick={() => setShowMenu(false)}
                 role="menuitem"
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 text-sm transition-colors",
+                  "flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors",
                   pathname === item.href
-                    ? "text-[#d14b7a]"
-                    : "text-gray-700 hover:bg-gray-50"
+                    ? "text-primary-text"
+                    : "text-on-surface hover:bg-surface-container-low"
                 )}
-                style={pathname === item.href ? { backgroundColor: '#fff0f4' } : undefined}
               >
                 <item.icon className="h-4 w-4" aria-hidden="true" />
                 {item.name}
               </Link>
             ))}
-            <div className="border-t border-gray-100 my-1" />
+            <div className="border-t border-outline-variant/60 my-1" />
             <button
               onClick={handleLogout}
               role="menuitem"
-              className="flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 w-full transition-colors"
+              className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-error hover:bg-error-container/40 w-full transition-colors"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />
               Keluar

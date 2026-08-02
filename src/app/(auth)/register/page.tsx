@@ -121,7 +121,7 @@ export default function RegisterPage() {
           </Button>
           <p className="text-sm text-gray-500">
             Sudah punya akun?{" "}
-            <Link href="/login" className="text-[#e85d8a] hover:text-[#e85d8a] font-medium">
+            <Link href="/login" className="text-primary-text hover:text-primary-text font-medium">
               Masuk
             </Link>
           </p>

@@ -17,11 +17,11 @@ interface ModuleCardProps {
 }
 
 const colorStyles = {
-  pink: { bg: "bg-[#fff0f4]", icon: "text-[#e85d8a]" },
-  blue: { bg: "bg-blue-50", icon: "text-blue-500" },
-  purple: { bg: "bg-purple-50", icon: "text-purple-500" },
-  orange: { bg: "bg-orange-50", icon: "text-orange-500" },
-  green: { bg: "bg-emerald-50", icon: "text-emerald-500" },
+  pink: { bg: "bg-primary-fixed", icon: "text-primary-text" },
+  blue: { bg: "bg-tertiary-fixed", icon: "text-tertiary" },
+  purple: { bg: "bg-tertiary-fixed", icon: "text-tertiary" },
+  orange: { bg: "bg-tertiary-fixed", icon: "text-tertiary" },
+  green: { bg: "bg-secondary-container/40", icon: "text-secondary" },
 };
 
 export function ModuleCard({
@@ -47,10 +47,10 @@ export function ModuleCard({
           >
             <Icon className={cn("h-5 w-5", styles.icon)} />
           </div>
-          <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{name}</h3>
-          <p className="text-xs sm:text-sm text-gray-500 mt-0.5 line-clamp-2">{description}</p>
+          <h3 className="font-semibold text-on-surface text-sm sm:text-base">{name}</h3>
+          <p className="text-xs sm:text-sm text-on-surface-variant mt-0.5 line-clamp-2">{description}</p>
           {count !== undefined && label && (
-            <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#fff7fa] px-2 py-0.5 text-[11px] font-medium text-[#d14b7a]">
+            <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-primary-fixed px-2 py-0.5 text-[11px] font-semibold text-primary-text">
               {count} {label}
             </div>
           )}

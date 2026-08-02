@@ -70,7 +70,7 @@ export default function LoginPage() {
           />
           <Link
             href="/forgot-password"
-            className="text-sm text-[#e85d8a] hover:text-[#e85d8a] block text-right"
+            className="text-sm text-primary-text hover:text-primary-text block text-right"
           >
             Lupa password?
           </Link>
@@ -81,7 +81,7 @@ export default function LoginPage() {
           </Button>
           <p className="text-sm text-gray-500">
             Belum punya akun?{" "}
-            <Link href="/register" className="text-[#e85d8a] hover:text-[#e85d8a] font-medium">
+            <Link href="/register" className="text-primary-text hover:text-primary-text font-medium">
               Daftar
             </Link>
           </p>

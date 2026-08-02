@@ -20,15 +20,16 @@ import {
   Filter,
   ArrowUpCircle,
   ArrowDownCircle,
-  Download,
+  FileText,
   FileSpreadsheet,
 } from "lucide-react";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { exportFinanceToPDF } from "@/lib/export/pdf";
 import { exportFinanceToExcel } from "@/lib/export/excel";
 import { financeRecordSchema } from "@/lib/validations";
 import type { FinanceRecord } from "@/types";
 import { FinanceCharts } from "@/components/finance/finance-charts";
+import { Chip } from "@/components/ui/chip";
 
 const DEFAULT_CATEGORIES = [
   "Gaji",
@@ -242,36 +243,40 @@ export default function FinancePage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <PageHeader title="Keuangan" description="Keuangan kamu">
+      <PageHeader label="Summary" title="Keuangan Kamu">
         <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setShowFilters(!showFilters)}
+          onClick={() => setShowForm(true)}
+          className="rounded-full h-12 w-12 p-0"
+          aria-label="Tambah transaksi"
         >
-          <Filter className="h-4 w-4 mr-1" />
-          Filter
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => exportFinanceToPDF(records, periodLabels[period])}
-        >
-          <Download className="h-4 w-4 mr-1" />
-          PDF
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => exportFinanceToExcel(records, periodLabels[period])}
-        >
-          <FileSpreadsheet className="h-4 w-4 mr-1" />
-          Excel
-        </Button>
-        <Button onClick={() => setShowForm(true)} size="sm">
-          <Plus className="h-4 w-4 mr-1" />
-          Baru
+          <Plus className="h-5 w-5" />
         </Button>
       </PageHeader>
+
+      {/* Action Pills */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="inline-flex items-center gap-2 rounded-full bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface hover:bg-surface-container transition-colors"
+        >
+          <Filter className="h-4 w-4 text-primary-text" aria-hidden="true" />
+          Filter
+        </button>
+        <button
+          onClick={() => exportFinanceToPDF(records, periodLabels[period])}
+          className="inline-flex items-center gap-2 rounded-full bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface hover:bg-surface-container transition-colors"
+        >
+          <FileText className="h-4 w-4 text-primary-text" aria-hidden="true" />
+          PDF
+        </button>
+        <button
+          onClick={() => exportFinanceToExcel(records, periodLabels[period])}
+          className="inline-flex items-center gap-2 rounded-full bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface hover:bg-surface-container transition-colors"
+        >
+          <FileSpreadsheet className="h-4 w-4 text-secondary" aria-hidden="true" />
+          Excel
+        </button>
+      </div>
 
       {/* Filters */}
       {showFilters && (
@@ -279,7 +284,7 @@ export default function FinancePage() {
           <CardContent className="p-4">
             <div className="flex flex-wrap gap-4">
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">
+                <label className="text-sm font-semibold text-on-surface mb-1.5 block">
                   Tipe
                 </label>
                 <div className="flex gap-2">
@@ -288,38 +293,35 @@ export default function FinancePage() {
                     { value: "income", label: "Pemasukan" },
                     { value: "expense", label: "Pengeluaran" },
                   ].map((opt) => (
-                    <Button
+                    <Chip
                       key={opt.value}
-                      variant={filterType === opt.value ? "default" : "outline"}
-                      size="sm"
+                      active={filterType === opt.value}
                       onClick={() => setFilterType(opt.value as typeof filterType)}
                     >
                       {opt.label}
-                    </Button>
+                    </Chip>
                   ))}
                 </div>
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">
+                <label className="text-sm font-semibold text-on-surface mb-1.5 block">
                   Kategori
                 </label>
                 <div className="flex gap-2 flex-wrap">
-                  <Button
-                    variant={filterCategory === "all" ? "default" : "outline"}
-                    size="sm"
+                  <Chip
+                    active={filterCategory === "all"}
                     onClick={() => setFilterCategory("all")}
                   >
                     Semua
-                  </Button>
+                  </Chip>
                   {categories.map((cat) => (
-                    <Button
+                    <Chip
                       key={cat}
-                      variant={filterCategory === cat ? "default" : "outline"}
-                      size="sm"
+                      active={filterCategory === cat}
                       onClick={() => setFilterCategory(cat)}
                     >
                       {cat}
-                    </Button>
+                    </Chip>
                   ))}
                 </div>
               </div>
@@ -336,49 +338,56 @@ export default function FinancePage() {
       >
         <div className="space-y-4">
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-2 block">
+            <label className="text-sm font-semibold text-on-surface mb-2 block">
               Tipe Transaksi
             </label>
             <div className="grid grid-cols-2 gap-2">
-              <Button
-                variant={formData.type === "income" ? "default" : "outline"}
-                className={formData.type === "income" ? "bg-[#ffb6c9]" : ""}
+              <button
                 onClick={() => setFormData((prev) => ({ ...prev, type: "income" }))}
+                className={cn(
+                  "flex items-center justify-center gap-2 h-12 rounded-xl text-sm font-bold transition-colors",
+                  formData.type === "income"
+                    ? "bg-secondary text-on-secondary"
+                    : "bg-surface-container text-on-surface-variant"
+                )}
               >
-                <ArrowUpCircle className="h-4 w-4 mr-2" />
+                <ArrowUpCircle className="h-4 w-4" />
                 Pemasukan
-              </Button>
-              <Button
-                variant={formData.type === "expense" ? "default" : "outline"}
-                className={formData.type === "expense" ? "bg-red-500" : ""}
+              </button>
+              <button
                 onClick={() => setFormData((prev) => ({ ...prev, type: "expense" }))}
+                className={cn(
+                  "flex items-center justify-center gap-2 h-12 rounded-xl text-sm font-bold transition-colors",
+                  formData.type === "expense"
+                    ? "bg-error text-on-error"
+                    : "bg-surface-container text-on-surface-variant"
+                )}
               >
-                <ArrowDownCircle className="h-4 w-4 mr-2" />
+                <ArrowDownCircle className="h-4 w-4" />
                 Pengeluaran
-              </Button>
+              </button>
             </div>
           </div>
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">
+            <label className="text-sm font-semibold text-on-surface mb-1.5 block">
               Kategori
             </label>
             <div className="flex flex-wrap gap-2">
               {DEFAULT_CATEGORIES.map((cat) => (
-                <Button
+                <Chip
                   key={cat}
-                  variant={formData.category === cat ? "default" : "outline"}
-                  size="sm"
+                  active={formData.category === cat}
                   onClick={() => {
                     setFormData((prev) => ({ ...prev, category: cat }));
                     if (validationErrors.category) setValidationErrors({});
                   }}
                 >
                   {cat}
-                </Button>
+                </Chip>
               ))}
             </div>
             {validationErrors.category && (
-              <p className="text-xs text-red-500 mt-1">{validationErrors.category}</p>
+              <p className="text-xs text-error mt-1">{validationErrors.category}</p>
             )}
           </div>
           <Input
@@ -403,11 +412,11 @@ export default function FinancePage() {
             error={validationErrors.transaction_date}
           />
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">
+            <label className="text-sm font-semibold text-on-surface mb-1.5 block">
               Keterangan (opsional)
             </label>
             <textarea
-              className="w-full min-h-[60px] rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#e85d8a]"
+              className="w-full min-h-[60px] rounded-xl border border-outline-variant/60 bg-surface-container px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/70 focus:outline-none focus:bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20"
               placeholder="Catatan tambahan..."
               value={formData.description}
               onChange={(e) =>
@@ -427,70 +436,124 @@ export default function FinancePage() {
       </Modal>
 
       {/* Period Selector */}
-      <div className="flex gap-2">
+      <div className="inline-flex rounded-full bg-surface-container-low p-1 gap-1">
         {(["daily", "weekly", "monthly"] as Period[]).map((p) => (
-          <Button
+          <button
             key={p}
-            variant={period === p ? "default" : "outline"}
-            size="sm"
             onClick={() => setPeriod(p)}
+            className={cn(
+              "rounded-full px-4 py-2 text-sm font-semibold transition-all",
+              period === p
+                ? "bg-surface-container-lowest text-primary-text shadow-card"
+                : "text-on-surface-variant hover:text-on-surface"
+            )}
           >
             {periodLabels[p]}
-          </Button>
+          </button>
         ))}
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-[#fff0f4] rounded-xl">
-                <TrendingUp className="h-5 w-5 text-[#e85d8a]" />
+        <Card className="relative overflow-hidden">
+          <CardContent className="relative z-10 p-4 sm:p-5">
+            <div className="flex items-center justify-between">
+              <div className="p-2.5 rounded-xl bg-secondary-container/40 text-secondary">
+                <TrendingUp className="h-5 w-5" />
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Pemasukan</p>
-                <p className="text-xl font-bold text-[#e85d8a]">
-                  {formatCurrency(totalIncome)}
-                </p>
-              </div>
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-secondary">
+                <TrendingUp className="h-3.5 w-3.5" aria-hidden="true" />
+                {periodLabels[period]}
+              </span>
             </div>
+            <p className="text-xs text-on-surface-variant mt-4">Pemasukan</p>
+            <p className="text-xl font-extrabold text-on-surface mt-0.5 tabular-nums">
+              {formatCurrency(totalIncome)}
+            </p>
           </CardContent>
+          <svg
+            aria-hidden="true"
+            className="absolute bottom-0 left-0 w-full h-16 text-secondary-container/70 pointer-events-none"
+            viewBox="0 0 200 64"
+            fill="currentColor"
+            preserveAspectRatio="none"
+          >
+            <path d="M0 42 Q 25 20 50 34 T 100 34 T 150 30 T 200 26 L 200 64 L 0 64 Z" />
+          </svg>
+          <svg
+            aria-hidden="true"
+            className="absolute bottom-0 left-0 w-full h-24 text-secondary-container/35 pointer-events-none"
+            viewBox="0 0 200 96"
+            fill="currentColor"
+            preserveAspectRatio="none"
+          >
+            <path d="M0 60 Q 40 30 80 50 T 160 44 T 200 48 L 200 96 L 0 96 Z" />
+          </svg>
         </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-red-50 rounded-xl">
-                <TrendingDown className="h-5 w-5 text-red-500" />
+        <Card className="relative overflow-hidden">
+          <CardContent className="relative z-10 p-4 sm:p-5">
+            <div className="flex items-center justify-between">
+              <div className="p-2.5 rounded-xl bg-error-container/60 text-error">
+                <TrendingDown className="h-5 w-5" />
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Pengeluaran</p>
-                <p className="text-xl font-bold text-red-500">
-                  {formatCurrency(totalExpense)}
-                </p>
-              </div>
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-error">
+                <TrendingDown className="h-3.5 w-3.5" aria-hidden="true" />
+                {periodLabels[period]}
+              </span>
             </div>
+            <p className="text-xs text-on-surface-variant mt-4">Pengeluaran</p>
+            <p className="text-xl font-extrabold text-on-surface mt-0.5 tabular-nums">
+              {formatCurrency(totalExpense)}
+            </p>
           </CardContent>
+          <svg
+            aria-hidden="true"
+            className="absolute bottom-0 left-0 w-full h-16 text-primary-container/60 pointer-events-none"
+            viewBox="0 0 200 64"
+            fill="currentColor"
+            preserveAspectRatio="none"
+          >
+            <path d="M0 42 Q 25 20 50 34 T 100 34 T 150 30 T 200 26 L 200 64 L 0 64 Z" />
+          </svg>
+          <svg
+            aria-hidden="true"
+            className="absolute bottom-0 left-0 w-full h-24 text-primary-container/30 pointer-events-none"
+            viewBox="0 0 200 96"
+            fill="currentColor"
+            preserveAspectRatio="none"
+          >
+            <path d="M0 60 Q 40 30 80 50 T 160 44 T 200 48 L 200 96 L 0 96 Z" />
+          </svg>
         </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-50 rounded-xl">
-                <Wallet className="h-5 w-5 text-blue-600" />
+        <div className="relative overflow-hidden rounded-xl bg-gradient-pink shadow-lift">
+          <div
+            aria-hidden="true"
+            className="absolute -right-6 -top-10 h-28 w-28 rounded-full bg-white/15"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute -bottom-12 right-16 h-24 w-24 rounded-full bg-white/10"
+          />
+          <div className="relative p-4 sm:p-5">
+            <div className="flex items-center justify-between">
+              <div className="p-2.5 rounded-xl bg-white/20 text-white">
+                <Wallet className="h-5 w-5" />
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Saldo</p>
-                <p
-                  className={`text-xl font-bold ${
-                    balance >= 0 ? "text-[#e85d8a]" : "text-red-500"
-                  }`}
-                >
-                  {formatCurrency(balance)}
-                </p>
-              </div>
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1 text-xs font-semibold text-white/85",
+                  balance < 0 && "text-error"
+                )}
+              >
+                {balance >= 0 ? "Sisa saldo" : "Minus"}
+              </span>
             </div>
-          </CardContent>
-        </Card>
+            <p className="text-xs text-white/80 mt-4">Saldo</p>
+            <p className="text-xl font-extrabold text-white mt-0.5 tabular-nums">
+              {formatCurrency(balance)}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Charts */}
@@ -524,40 +587,42 @@ export default function FinancePage() {
               {records.map((record) => (
                 <div
                   key={record.id}
-                  className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/60 hover:bg-surface-container-low transition-colors"
                 >
                   <div
-                    className={`p-2 rounded-lg ${
+                    className={cn(
+                      "p-2 rounded-xl flex-shrink-0",
                       record.type === "income"
-                        ? "bg-pink-50"
-                        : "bg-red-50"
-                    }`}
+                        ? "bg-secondary-container/40 text-secondary"
+                        : "bg-error-container/60 text-error"
+                    )}
                   >
                     {record.type === "income" ? (
-                      <ArrowUpCircle className="h-5 w-5 text-[#e85d8a]" />
+                      <ArrowUpCircle className="h-5 w-5" />
                     ) : (
-                      <ArrowDownCircle className="h-5 w-5 text-red-500" />
+                      <ArrowDownCircle className="h-5 w-5" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900">
+                    <p className="font-semibold text-on-surface">
                       {record.category}
                     </p>
                     {record.description && (
-                      <p className="text-xs text-gray-500 truncate">
+                      <p className="text-xs text-on-surface-variant truncate">
                         {record.description}
                       </p>
                     )}
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-on-surface-variant/70">
                       {formatDate(record.transaction_date)}
                     </p>
                   </div>
                   <p
-                    className={`font-semibold ${
+                    className={cn(
+                      "font-bold tabular-nums",
                       record.type === "income"
-                        ? "text-[#e85d8a]"
-                        : "text-red-500"
-                    }`}
+                        ? "text-secondary"
+                        : "text-error"
+                    )}
                   >
                     {record.type === "income" ? "+" : "-"}{" "}
                     {formatCurrency(record.amount)}
@@ -574,7 +639,7 @@ export default function FinancePage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 text-red-500"
+                      className="h-8 w-8 text-error"
                       onClick={() => handleDelete(record.id)}
                     >
                       <Trash2 className="h-4 w-4" />

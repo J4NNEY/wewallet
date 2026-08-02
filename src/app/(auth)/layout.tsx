@@ -11,7 +11,7 @@ export default function AuthLayout({
       {/* Decorative blobs */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[#ffb6c9]/25 blur-3xl"
+        className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/15 blur-3xl"
       />
       <div
         aria-hidden="true"
