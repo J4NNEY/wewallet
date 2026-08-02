@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/toast";
 import {
   Plus,
@@ -305,7 +306,11 @@ export default function NotesPage() {
 
       {/* Notes Grid */}
       {loading ? (
-        <div className="text-center py-12 text-gray-500">Memuat catatan...</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <Skeleton key={i} className="h-40 rounded-xl" />
+          ))}
+        </div>
       ) : notes.length === 0 ? (
         <div className="text-center py-12">
           <FileText className="h-12 w-12 text-gray-300 mx-auto mb-3" />

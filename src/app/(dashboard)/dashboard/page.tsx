@@ -13,6 +13,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   StatsCard,
   ModuleCard,
@@ -385,27 +386,22 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="space-y-6 animate-pulse">
-        {/* Header skeleton */}
-        <div className="flex items-center justify-between">
-          <div className="space-y-2">
-            <div className="h-8 w-64 bg-gray-200 rounded" />
-            <div className="h-4 w-48 bg-gray-200 rounded" />
-          </div>
-          <div className="w-12 h-12 rounded-full bg-gray-200" />
+      <div className="space-y-5">
+        <div className="space-y-2">
+          <Skeleton className="h-7 w-64" />
+          <Skeleton className="h-4 w-48" />
         </div>
-        
-        {/* Stats skeleton */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 scrollbar-hide">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-32 bg-gray-200 rounded-xl" />
+            <Skeleton key={i} className="h-32 w-[160px] flex-shrink-0 rounded-2xl sm:w-auto" />
           ))}
         </div>
-        
-        {/* Content skeleton */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 h-80 bg-gray-200 rounded-xl" />
-          <div className="h-80 bg-gray-200 rounded-xl" />
+        <Skeleton className="h-20 rounded-2xl" />
+        <Skeleton className="h-72 rounded-2xl" />
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <Skeleton key={i} className="h-36 rounded-2xl" />
+          ))}
         </div>
       </div>
     );

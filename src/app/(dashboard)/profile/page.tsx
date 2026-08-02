@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/toast";
 import { User, Lock } from "lucide-react";
 import { profileSchema, changePasswordSchema } from "@/lib/validations";
@@ -109,8 +110,10 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#ffb6c9]"></div>
+      <div className="space-y-6 max-w-2xl">
+        <Skeleton className="h-7 w-40" />
+        <Skeleton className="h-4 w-56" />
+        <Skeleton className="h-64 rounded-2xl" />
       </div>
     );
   }

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/toast";
 import {
   Plus,
@@ -383,7 +384,11 @@ export default function ShoppingPage() {
         <div className="lg:col-span-1 space-y-4">
           <h2 className="font-semibold text-gray-900">Daftar Saya</h2>
           {loading ? (
-            <p className="text-sm text-gray-500">Memuat...</p>
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <Skeleton key={i} className="h-20 rounded-xl" />
+              ))}
+            </div>
           ) : lists.length === 0 ? (
             <Card>
               <CardContent className="p-6 text-center">
@@ -483,7 +488,11 @@ export default function ShoppingPage() {
               </CardHeader>
               <CardContent>
                 {loadingItems ? (
-                  <p className="text-sm text-gray-500 text-center py-4">Memuat item...</p>
+                  <div className="space-y-3">
+                    {[1, 2, 3, 4].map((i) => (
+                      <Skeleton key={i} className="h-12 rounded-lg" />
+                    ))}
+                  </div>
                 ) : items.length === 0 ? (
                   <div className="text-center py-8">
                     <ShoppingCart className="h-8 w-8 text-gray-300 mx-auto mb-2" />

@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/toast";
 import { createClient } from "@/lib/supabase/client";
 import { Trash2, History, Save, Download } from "lucide-react";
@@ -331,9 +332,11 @@ export default function CalculatorPage() {
             </CardHeader>
             <CardContent className="p-2 max-h-[200px] lg:max-h-[400px] overflow-y-auto">
               {loading ? (
-                <p className="text-sm text-gray-400 text-center py-4">
-                  Memuat...
-                </p>
+                <div className="space-y-2 py-1">
+                  {[1, 2, 3].map((i) => (
+                    <Skeleton key={i} className="h-10 rounded-lg" />
+                  ))}
+                </div>
               ) : history.length === 0 ? (
                 <p className="text-sm text-gray-400 text-center py-4">
                   Belum ada riwayat
