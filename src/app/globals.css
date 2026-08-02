@@ -9,14 +9,40 @@
   --color-primary-light: #fff0f4;
   --color-primary-text: #e85d8a;
   --color-primary-text-hover: #d14b7a;
+  --color-soft: #fff7fa;
+  --color-soft-strong: #ffe9ef;
+  --color-line: #ffe4ec;
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.04), 0 10px 30px -15px rgb(232 93 138 / 0.2);
+  --shadow-lift: 0 14px 34px -14px rgb(232 93 138 / 0.4);
 }
 
 body {
-  background: var(--color-background);
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(255, 182, 201, 0.14), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(255, 214, 226, 0.18), transparent 60%),
+    var(--color-background);
+  background-attachment: fixed;
   color: var(--color-foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Soft gradient helpers (no emoji, used across cards & hero sections) */
+.bg-gradient-soft {
+  background-image: linear-gradient(180deg, #ffffff 0%, #fff7fa 100%);
+}
+.bg-gradient-pink {
+  background-image: linear-gradient(135deg, #ffb6c9 0%, #ffd3e0 100%);
+}
+.bg-gradient-hero {
+  background-image: linear-gradient(160deg, #ffe0e9 0%, #fff0f4 55%, #fff8fa 100%);
+}
+.text-gradient-pink {
+  background-image: linear-gradient(135deg, #e85d8a 0%, #ff9db5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Typography */

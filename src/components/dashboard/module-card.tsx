@@ -17,11 +17,11 @@ interface ModuleCardProps {
 }
 
 const colorStyles = {
-  pink: { bg: "bg-[#fff0f4]", icon: "text-[#e85d8a]", hover: "hover:border-[#ffb6c9]/30" },
-  blue: { bg: "bg-blue-50", icon: "text-blue-500", hover: "hover:border-blue-200" },
-  purple: { bg: "bg-purple-50", icon: "text-purple-500", hover: "hover:border-purple-200" },
-  orange: { bg: "bg-orange-50", icon: "text-orange-500", hover: "hover:border-orange-200" },
-  green: { bg: "bg-emerald-50", icon: "text-emerald-500", hover: "hover:border-emerald-200" },
+  pink: { bg: "bg-[#fff0f4]", icon: "text-[#e85d8a]" },
+  blue: { bg: "bg-blue-50", icon: "text-blue-500" },
+  purple: { bg: "bg-purple-50", icon: "text-purple-500" },
+  orange: { bg: "bg-orange-50", icon: "text-orange-500" },
+  green: { bg: "bg-emerald-50", icon: "text-emerald-500" },
 };
 
 export function ModuleCard({
@@ -36,22 +36,26 @@ export function ModuleCard({
   const styles = colorStyles[color];
 
   return (
-    <Link href={href}>
-      <Card className={cn("hover:shadow-md transition-all duration-200 cursor-pointer h-full", styles.hover)}>
+    <Link href={href} className="group block">
+      <Card className="h-full transition-all duration-200 group-hover:shadow-lift group-hover:-translate-y-0.5">
         <CardContent className="p-3 sm:p-5">
-          <div className={cn("w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center mb-2 sm:mb-3", styles.bg)}>
+          <div
+            className={cn(
+              "w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center mb-2 sm:mb-3",
+              styles.bg
+            )}
+          >
             <Icon className={cn("h-5 w-5", styles.icon)} />
           </div>
           <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{name}</h3>
           <p className="text-xs sm:text-sm text-gray-500 mt-0.5 line-clamp-2">{description}</p>
           {count !== undefined && label && (
-            <p className="text-xs text-gray-400 mt-2">
+            <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#fff7fa] px-2 py-0.5 text-[11px] font-medium text-[#d14b7a]">
               {count} {label}
-            </p>
+            </div>
           )}
         </CardContent>
       </Card>
     </Link>
   );
 }
-

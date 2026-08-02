@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/ui/page-header";
 import { useToast } from "@/components/ui/toast";
 import { Mail, Send, Clock, Info } from "lucide-react";
 
@@ -66,16 +67,13 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       {/* Header */}
-      <div>
-        <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Pengaturan</h1>
-        <p className="text-sm text-gray-500 mt-1">Kelola preferensi kamu</p>
-      </div>
+      <PageHeader title="Pengaturan" description="Kelola preferensi kamu" />
 
       {/* Email Recap Settings */}
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#fff0f4] flex items-center justify-center">
               <Mail className="h-5 w-5 text-[#e85d8a]" />
             </div>
             <div>

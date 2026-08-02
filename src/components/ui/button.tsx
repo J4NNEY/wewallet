@@ -3,15 +3,15 @@ import { forwardRef, ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e85d8a] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e85d8a] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-[#ffb6c9] text-white hover:bg-[#ff9db5] shadow-sm",
+        default: "bg-[#ffb6c9] text-white hover:bg-[#ff9db5] shadow-card hover:shadow-lift",
         destructive: "bg-red-500 text-white hover:bg-red-600 shadow-sm",
-        outline: "border border-gray-300 bg-white hover:bg-gray-50 text-gray-700",
-        secondary: "bg-gray-100 text-gray-700 hover:bg-gray-200",
-        ghost: "hover:bg-gray-100 text-gray-700",
+        outline: "border border-[#ffe4ec] bg-white hover:bg-[#fff7fa] text-gray-700",
+        secondary: "bg-[#fff0f4] text-[#d14b7a] hover:bg-[#ffe9ef]",
+        ghost: "hover:bg-[#fff7fa] text-gray-700",
         link: "text-[#e85d8a] underline-offset-4 hover:underline hover:text-[#d14b7a]",
       },
       size: {

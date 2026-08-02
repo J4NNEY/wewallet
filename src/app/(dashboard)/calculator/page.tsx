@@ -4,6 +4,8 @@ import { useState, useCallback, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useToast } from "@/components/ui/toast";
 import { createClient } from "@/lib/supabase/client";
 import { Trash2, History, Save, Download } from "lucide-react";
@@ -263,8 +265,7 @@ export default function CalculatorPage() {
 
   return (
     <div className="max-w-lg mx-auto space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Kalkulator</h1>
+      <PageHeader title="Kalkulator" description="Hitung cepat & tersimpan">
         <Button
           variant="ghost"
           size="sm"
@@ -273,14 +274,14 @@ export default function CalculatorPage() {
           <History className="h-4 w-4 mr-2" />
           Riwayat
         </Button>
-      </div>
+      </PageHeader>
 
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Calculator */}
         <Card className="flex-1">
           <CardContent className="p-3 sm:p-4">
             {/* Display */}
-            <div className="bg-gray-100 rounded-lg p-3 sm:p-4 mb-3 sm:mb-4">
+            <div className="bg-gradient-soft border border-[#ffe4ec] rounded-xl p-3 sm:p-4 mb-3 sm:mb-4">
               <div className="text-right text-sm text-gray-500 h-6 truncate">
                 {expression}
               </div>
@@ -338,9 +339,11 @@ export default function CalculatorPage() {
                   ))}
                 </div>
               ) : history.length === 0 ? (
-                <p className="text-sm text-gray-400 text-center py-4">
-                  Belum ada riwayat
-                </p>
+                <EmptyState
+                  icon={History}
+                  title="Belum ada riwayat"
+                  className="py-6"
+                />
               ) : (
                 <div className="space-y-1">
                   {history.map((item) => (

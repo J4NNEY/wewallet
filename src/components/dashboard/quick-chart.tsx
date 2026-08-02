@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface ChartDataPoint {
   day: string;
@@ -33,7 +34,7 @@ export function QuickChart({ data, loading }: QuickChartProps) {
               <span className="text-gray-500">Pemasukan</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-gray-300" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#ffdde6]" />
               <span className="text-gray-500">Pengeluaran</span>
             </div>
           </div>
@@ -50,12 +51,12 @@ export function QuickChart({ data, loading }: QuickChartProps) {
             ))}
           </div>
         ) : data.length === 0 ? (
-          <div className="h-48 flex items-center justify-center">
-            <div className="text-center">
-              <BarChart3 className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">Belum ada data</p>
-            </div>
-          </div>
+          <EmptyState
+            icon={BarChart3}
+            title="Belum ada data keuangan"
+            description="Catat pemasukan atau pengeluaran pertama kamu di halaman Keuangan."
+            className="min-h-48"
+          />
         ) : (
           <div>
             {/* Chart area */}
@@ -68,12 +69,12 @@ export function QuickChart({ data, loading }: QuickChartProps) {
                   <div key={index} className="flex-1 flex flex-col items-center gap-1">
                     <div className="w-full flex gap-0.5 items-end justify-center" style={{ height: "160px" }}>
                       <div
-                        className="flex-1 bg-[#ffb6c9] rounded-t-sm transition-all duration-300 hover:bg-[#ff9db5]"
-                        style={{ height: `${incomeHeight}%`, minHeight: point.income > 0 ? "4px" : "0" }}
+                        className="flex-1 bg-[#ffb6c9] rounded-t-lg transition-all duration-300 hover:bg-[#ff9db5]"
+                        style={{ height: `${incomeHeight}%`, minHeight: point.income > 0 ? "6px" : "0" }}
                       />
                       <div
-                        className="flex-1 bg-gray-300 rounded-t-sm transition-all duration-300 hover:bg-gray-400"
-                        style={{ height: `${expenseHeight}%`, minHeight: point.expense > 0 ? "4px" : "0" }}
+                        className="flex-1 bg-[#ffdde6] rounded-t-lg transition-all duration-300 hover:bg-[#ffc6d6]"
+                        style={{ height: `${expenseHeight}%`, minHeight: point.expense > 0 ? "6px" : "0" }}
                       />
                     </div>
                     <span className="text-[10px] text-gray-400 font-medium">

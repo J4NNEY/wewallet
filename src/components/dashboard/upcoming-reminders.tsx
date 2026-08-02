@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bell, Calendar, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export interface UpcomingReminder {
   id: string;
@@ -47,27 +48,29 @@ export function UpcomingReminders({ reminders, loading }: UpcomingRemindersProps
             ))}
           </div>
         ) : reminders.length === 0 ? (
-          <div className="text-center py-8">
-            <Calendar className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-            <p className="text-sm text-gray-500">Tidak ada reminder mendatang</p>
-          </div>
+          <EmptyState
+            icon={Calendar}
+            title="Tidak ada reminder mendatang"
+            description="Tenang aja, belum ada jadwal yang perlu dikejar."
+            className="min-h-48"
+          />
         ) : (
           <div className="space-y-2">
             {reminders.map((reminder) => (
               <div
                 key={reminder.id}
                 className={cn(
-                  "flex items-center gap-3 p-3 rounded-lg border transition-colors hover:bg-gray-50",
-                  reminder.isToday ? "border-pink-200 bg-pink-50/50" : "border-gray-100"
+                  "flex items-center gap-3 p-3 rounded-xl border transition-colors hover:bg-gray-50",
+                  reminder.isToday ? "border-[#ffb6c9]/40 bg-[#fff0f4]" : "border-[#ffe4ec]"
                 )}
               >
                 <div className={cn(
-                  "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
-                  reminder.isToday ? "bg-pink-100" : "bg-gray-100"
+                  "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0",
+                  reminder.isToday ? "bg-[#ffb6c9]" : "bg-[#fff0f4]"
                 )}>
                   <Clock className={cn(
                     "h-5 w-5",
-                    reminder.isToday ? "text-[#e85d8a]" : "text-gray-500"
+                    reminder.isToday ? "text-white" : "text-[#d14b7a]"
                   )} />
                 </div>
                 <div className="flex-1 min-w-0">

@@ -15,7 +15,7 @@ export default function DashboardLayout({
     <ErrorBoundary>
       <AuthCheck>
         {/* Desktop: sidebar layout */}
-        <div className="hidden lg:flex h-screen bg-gray-50">
+        <div className="hidden lg:flex h-screen">
           <Sidebar />
           <main className="flex-1 overflow-y-auto">
             <div className="p-8 max-w-7xl mx-auto">
@@ -25,7 +25,7 @@ export default function DashboardLayout({
         </div>
 
         {/* Mobile: bottom nav layout */}
-        <div className="lg:hidden min-h-screen bg-gray-50 pb-20">
+        <div className="lg:hidden min-h-screen pb-20">
           <MobileHeader />
           <main className="p-4">
             <ErrorBoundary>{children}</ErrorBoundary>

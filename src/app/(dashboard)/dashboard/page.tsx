@@ -331,6 +331,14 @@ export default function DashboardPage() {
     return "Selamat Malam";
   };
 
+  const firstName = userName.split(" ")[0];
+  const todayLabel = new Date().toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   const modules = [
     {
       name: "Kalkulator",
@@ -410,13 +418,17 @@ export default function DashboardPage() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div>
-        <h1 className="text-lg sm:text-2xl font-semibold text-gray-900">
-          {getGreeting()}, {userName}!
-        </h1>
-        <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
-          Ringkasan hari ini
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-lg sm:text-2xl font-bold text-gray-900">
+            {getGreeting()},{" "}
+            <span className="text-gradient-pink">{firstName}!</span>
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-500 mt-0.5">{todayLabel}</p>
+        </div>
+        <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-pink flex items-center justify-center text-white font-bold shadow-card">
+          {userName.charAt(0).toUpperCase()}
+        </div>
       </div>
 
       {/* Stats Cards - Horizontal scroll on mobile */}
@@ -445,6 +457,7 @@ export default function DashboardPage() {
             value={formatCurrency(monthlyIncome - monthlyExpense)}
             icon={<DollarSign className="h-5 w-5" />}
             color="pink"
+            hero
           />
         </div>
       </div>
@@ -475,8 +488,11 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Upcoming Reminders */}
-      <UpcomingReminders reminders={upcomingReminders} loading={false} />
+      {/* Aktivitas & Reminder */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <ActivityFeed activities={activities} loading={false} />
+        <UpcomingReminders reminders={upcomingReminders} loading={false} />
+      </div>
     </div>
   );
 }

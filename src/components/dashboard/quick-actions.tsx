@@ -21,7 +21,7 @@ export function QuickActions() {
           className="flex-shrink-0"
         >
           <div className="flex flex-col items-center gap-1.5 w-16 sm:w-20">
-            <div className={`w-12 h-12 rounded-2xl ${action.color} flex items-center justify-center`}>
+            <div className={`w-12 h-12 rounded-2xl ${action.color} flex items-center justify-center shadow-card transition-transform duration-150 active:scale-95`}>
               <action.icon className="h-5 w-5" />
             </div>
             <span className="text-[11px] font-medium text-gray-700 text-center">{action.name}</span>

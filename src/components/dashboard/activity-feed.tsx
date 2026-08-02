@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StickyNote, DollarSign, ShoppingCart, Bell, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export type ActivityType = "note" | "income" | "expense" | "shopping" | "reminder";
 
@@ -71,10 +72,12 @@ export function ActivityFeed({ activities, loading }: ActivityFeedProps) {
             ))}
           </div>
         ) : activities.length === 0 ? (
-          <div className="text-center py-8">
-            <Clock className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-            <p className="text-sm text-gray-500">Belum ada aktivitas</p>
-          </div>
+          <EmptyState
+            icon={Clock}
+            title="Belum ada aktivitas"
+            description="Aktivitas terakhir kamu akan muncul di sini."
+            className="min-h-48"
+          />
         ) : (
           <div className="space-y-1">
             {activities.map((activity) => {
@@ -84,9 +87,9 @@ export function ActivityFeed({ activities, loading }: ActivityFeedProps) {
               return (
                 <div
                   key={activity.id}
-                  className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors"
                 >
-                  <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0", config.bg)}>
+                  <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0", config.bg)}>
                     <Icon className={cn("h-4 w-4", config.color)} />
                   </div>
                   <div className="flex-1 min-w-0">

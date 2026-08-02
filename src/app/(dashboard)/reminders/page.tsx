@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useToast } from "@/components/ui/toast";
 import {
   Plus,
@@ -327,34 +329,28 @@ export default function RemindersPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Reminder</h1>
-          <p className="text-sm text-gray-600">Pengingat kamu</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button
-            variant={view === "calendar" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setView("calendar")}
-          >
-            <CalendarIcon className="h-4 w-4 mr-1" />
-            Kalender
-          </Button>
-          <Button
-            variant={view === "list" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setView("list")}
-          >
-            <Clock className="h-4 w-4 mr-1" />
-            Daftar
-          </Button>
-          <Button onClick={() => setShowCreateModal(true)} size="sm">
-            <Plus className="h-4 w-4 mr-1" />
-            Baru
-          </Button>
-        </div>
-      </div>
+      <PageHeader title="Reminder" description="Pengingat kamu">
+        <Button
+          variant={view === "calendar" ? "default" : "outline"}
+          size="sm"
+          onClick={() => setView("calendar")}
+        >
+          <CalendarIcon className="h-4 w-4 mr-1" />
+          Kalender
+        </Button>
+        <Button
+          variant={view === "list" ? "default" : "outline"}
+          size="sm"
+          onClick={() => setView("list")}
+        >
+          <Clock className="h-4 w-4 mr-1" />
+          Daftar
+        </Button>
+        <Button onClick={() => setShowCreateModal(true)} size="sm">
+          <Plus className="h-4 w-4 mr-1" />
+          Baru
+        </Button>
+      </PageHeader>
 
       {/* Create/Edit Modal */}
       <Modal
@@ -488,12 +484,12 @@ export default function RemindersPage() {
                   ))}
                 </div>
               ) : upcomingReminders.length === 0 ? (
-                <div className="text-center py-8">
-                  <Bell className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-                  <p className="text-sm text-gray-500">
-                    Tidak ada reminder mendatang
-                  </p>
-                </div>
+                <EmptyState
+                  icon={Bell}
+                  title="Tidak ada reminder mendatang"
+                  description="Semua jadwalmu beres. Santai dulu!"
+                  className="py-8"
+                />
               ) : (
                 <div className="space-y-2">
                   {upcomingReminders.map((reminder) => (
@@ -517,9 +513,12 @@ export default function RemindersPage() {
             </CardHeader>
             <CardContent>
               {completedReminders.length === 0 ? (
-                <p className="text-sm text-gray-500 text-center py-8">
-                  Belum ada yang selesai
-                </p>
+                <EmptyState
+                  icon={Bell}
+                  title="Belum ada yang selesai"
+                  description="Reminder yang sudah kamu selesaikan akan muncul di sini."
+                  className="py-8"
+                />
               ) : (
                 <div className="space-y-2">
                   {completedReminders.map((reminder) => (

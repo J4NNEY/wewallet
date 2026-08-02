@@ -2,6 +2,8 @@
 
 import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { PieChart, BarChart3 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import type { FinanceRecord } from "@/types";
 
@@ -84,9 +86,12 @@ export function FinanceCharts({ records }: FinanceChartsProps) {
         </CardHeader>
         <CardContent>
           {expenseByCategory.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center py-8">
-              Belum ada data pengeluaran
-            </p>
+            <EmptyState
+              icon={PieChart}
+              title="Belum ada data pengeluaran"
+              description="Pengeluaran per kategori akan tampil di sini."
+              className="py-8"
+            />
           ) : (
             <div className="space-y-4">
               {/* Simple visual pie representation */}
@@ -161,9 +166,12 @@ export function FinanceCharts({ records }: FinanceChartsProps) {
         </CardHeader>
         <CardContent>
           {dailyData.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center py-8">
-              Belum ada data transaksi
-            </p>
+            <EmptyState
+              icon={BarChart3}
+              title="Belum ada data transaksi"
+              description="Tren harian akan muncul setelah ada transaksi."
+              className="py-8"
+            />
           ) : (
             <div className="space-y-4">
               <div className="flex justify-end gap-4 text-xs">

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useToast } from "@/components/ui/toast";
 import {
   Plus,
@@ -175,26 +177,20 @@ export default function NotesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Catatan</h1>
-          <p className="text-sm text-gray-600">Catatan kamu</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => exportNotesToPDF(notes)}>
-            <Download className="h-4 w-4 mr-1" />
-            PDF
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => exportNotesToExcel(notes)}>
-            <FileSpreadsheet className="h-4 w-4 mr-1" />
-            Excel
-          </Button>
-          <Button onClick={() => startEdit()} size="sm">
-            <Plus className="h-4 w-4 mr-1" />
-            Baru
-          </Button>
-        </div>
-      </div>
+      <PageHeader title="Catatan" description="Catatan kamu">
+        <Button variant="outline" size="sm" onClick={() => exportNotesToPDF(notes)}>
+          <Download className="h-4 w-4 mr-1" />
+          PDF
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => exportNotesToExcel(notes)}>
+          <FileSpreadsheet className="h-4 w-4 mr-1" />
+          Excel
+        </Button>
+        <Button onClick={() => startEdit()} size="sm">
+          <Plus className="h-4 w-4 mr-1" />
+          Baru
+        </Button>
+      </PageHeader>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3">
@@ -312,13 +308,14 @@ export default function NotesPage() {
           ))}
         </div>
       ) : notes.length === 0 ? (
-        <div className="text-center py-12">
-          <FileText className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500">Belum ada catatan</p>
-          <Button variant="link" onClick={() => startEdit()} className="mt-2">
-            Buat catatan pertama
-          </Button>
-        </div>
+        <EmptyState
+          icon={FileText}
+          title="Belum ada catatan"
+          description="Mulai catat ide, rekap, atau hal penting lainnya."
+          action={
+            <Button onClick={() => startEdit()}>Buat catatan pertama</Button>
+          }
+        />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {notes.map((note) => (

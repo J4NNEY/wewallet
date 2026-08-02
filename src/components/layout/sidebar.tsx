@@ -98,8 +98,8 @@ export function Sidebar() {
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-100">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#ffb6c9' }}>
+          <div className="flex items-center gap-3 px-6 py-5 border-b border-[#ffe4ec]">
+            <div className="w-9 h-9 rounded-xl bg-gradient-pink flex items-center justify-center shadow-card">
               <Wallet className="h-4 w-4 text-white" aria-hidden="true" />
             </div>
             <span className="text-lg font-semibold text-gray-900">

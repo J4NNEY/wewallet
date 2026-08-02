@@ -6,7 +6,7 @@ export default function OfflinePage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-[#fef7f9] p-6">
       <div className="w-full max-w-sm text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#ffb6c9]">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-pink shadow-card">
           <WifiOff className="h-8 w-8 text-white" />
         </div>
         <h1 className="text-xl font-semibold text-gray-900">Kamu lagi offline</h1>

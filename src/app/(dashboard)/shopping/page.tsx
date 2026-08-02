@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useToast } from "@/components/ui/toast";
 import {
   Plus,
@@ -280,16 +282,12 @@ export default function ShoppingPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Daftar Belanja</h1>
-          <p className="text-sm text-gray-600">Daftar belanja kamu</p>
-        </div>
+      <PageHeader title="Daftar Belanja" description="Daftar belanja kamu">
         <Button onClick={() => setShowCreateModal(true)} size="sm">
           <Plus className="h-4 w-4 mr-1" />
           Buat Daftar
         </Button>
-      </div>
+      </PageHeader>
 
       {/* Create List Modal */}
       <Modal
@@ -390,12 +388,11 @@ export default function ShoppingPage() {
               ))}
             </div>
           ) : lists.length === 0 ? (
-            <Card>
-              <CardContent className="p-6 text-center">
-                <ShoppingCart className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-                <p className="text-sm text-gray-500">Belum ada daftar belanja</p>
-              </CardContent>
-            </Card>
+            <EmptyState
+              icon={ShoppingCart}
+              title="Belum ada daftar belanja"
+              description="Buat daftar biar belanja bulanan lebih teratur."
+            />
           ) : (
             <div className="space-y-2">
               {lists.map((list) => (
@@ -494,13 +491,16 @@ export default function ShoppingPage() {
                     ))}
                   </div>
                 ) : items.length === 0 ? (
-                  <div className="text-center py-8">
-                    <ShoppingCart className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">Belum ada item</p>
-                    <Button variant="link" size="sm" onClick={() => setShowAddItem(true)} className="mt-1">
-                      Tambah item
-                    </Button>
-                  </div>
+                  <EmptyState
+                    icon={ShoppingCart}
+                    title="Belum ada item"
+                    description="Mulai tambahkan barang yang mau kamu beli."
+                    action={
+                      <Button size="sm" onClick={() => setShowAddItem(true)}>
+                        Tambah item
+                      </Button>
+                    }
+                  />
                 ) : (
                   <div className="space-y-2">
                     {items.map((item) => (
@@ -545,12 +545,11 @@ export default function ShoppingPage() {
               </CardContent>
             </Card>
           ) : (
-            <Card>
-              <CardContent className="p-12 text-center">
-                <ShoppingCart className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500">Pilih atau buat daftar baru</p>
-              </CardContent>
-            </Card>
+            <EmptyState
+              icon={ShoppingCart}
+              title="Pilih atau buat daftar"
+              description="Pilih daftar di samping, atau buat daftar baru untuk mulai."
+            />
           )}
         </div>
       </div>

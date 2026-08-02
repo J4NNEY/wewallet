@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useToast } from "@/components/ui/toast";
 import {
   Plus,
@@ -240,42 +242,36 @@ export default function FinancePage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Keuangan</h1>
-          <p className="text-sm text-gray-600">Keuangan kamu</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <Filter className="h-4 w-4 mr-1" />
-            Filter
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => exportFinanceToPDF(records, periodLabels[period])}
-          >
-            <Download className="h-4 w-4 mr-1" />
-            PDF
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => exportFinanceToExcel(records, periodLabels[period])}
-          >
-            <FileSpreadsheet className="h-4 w-4 mr-1" />
-            Excel
-          </Button>
-          <Button onClick={() => setShowForm(true)} size="sm">
-            <Plus className="h-4 w-4 mr-1" />
-            Baru
-          </Button>
-        </div>
-      </div>
+      <PageHeader title="Keuangan" description="Keuangan kamu">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setShowFilters(!showFilters)}
+        >
+          <Filter className="h-4 w-4 mr-1" />
+          Filter
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => exportFinanceToPDF(records, periodLabels[period])}
+        >
+          <Download className="h-4 w-4 mr-1" />
+          PDF
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => exportFinanceToExcel(records, periodLabels[period])}
+        >
+          <FileSpreadsheet className="h-4 w-4 mr-1" />
+          Excel
+        </Button>
+        <Button onClick={() => setShowForm(true)} size="sm">
+          <Plus className="h-4 w-4 mr-1" />
+          Baru
+        </Button>
+      </PageHeader>
 
       {/* Filters */}
       {showFilters && (
@@ -449,7 +445,7 @@ export default function FinancePage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-pink-50 rounded-lg">
+              <div className="p-2 bg-[#fff0f4] rounded-xl">
                 <TrendingUp className="h-5 w-5 text-[#e85d8a]" />
               </div>
               <div>
@@ -464,7 +460,7 @@ export default function FinancePage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-red-50 rounded-lg">
+              <div className="p-2 bg-red-50 rounded-xl">
                 <TrendingDown className="h-5 w-5 text-red-500" />
               </div>
               <div>
@@ -479,7 +475,7 @@ export default function FinancePage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-50 rounded-lg">
+              <div className="p-2 bg-blue-50 rounded-xl">
                 <Wallet className="h-5 w-5 text-blue-600" />
               </div>
               <div>
@@ -513,18 +509,16 @@ export default function FinancePage() {
               ))}
             </div>
           ) : records.length === 0 ? (
-            <div className="text-center py-8">
-              <Wallet className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">Belum ada transaksi</p>
-              <Button
-                variant="link"
-                size="sm"
-                onClick={() => setShowForm(true)}
-                className="mt-1"
-              >
-                Tambah transaksi pertama
-              </Button>
-            </div>
+            <EmptyState
+              icon={Wallet}
+              title="Belum ada transaksi"
+              description="Catat pemasukan atau pengeluaran pertamamu biar keuangan terpantau."
+              action={
+                <Button size="sm" onClick={() => setShowForm(true)}>
+                  Tambah transaksi pertama
+                </Button>
+              }
+            />
           ) : (
             <div className="space-y-2">
               {records.map((record) => (
